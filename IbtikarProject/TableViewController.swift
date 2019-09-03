@@ -18,6 +18,8 @@ class TableViewController: UITableViewController {
         super.viewDidLoad()
         
         getData()
+      
+      
 
 
     }
@@ -118,7 +120,18 @@ class TableViewController: UITableViewController {
         return cell
     }
       
+      override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//            self.performSegue(withIdentifier: "goToDetails", sender: self)
+            
+           let detailsVC : DetailsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailsVC") as! DetailsViewController
+            
+//            let detailsVC : DetailsViewController = storyboard?.instantiateViewController(withIdentifier: "detailsVC") as! DetailsViewController
+            detailsVC.per = arrayOfPersons[indexPath.row]
+            
+            self.present(detailsVC, animated: true, completion: nil)
+      }
       
+     
       
 
     /*
