@@ -9,38 +9,106 @@
 import UIKit
 
 class TableViewController: UITableViewController {
+      
+      var arrayOfPersons : [Person] = []
+      var uiLable : UILabel!
+      var uiImageview : UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getData()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+      
+      
+      func getImage(str : String, imageView : UIImageView ){
+            
+            let session = URLSession.shared
+            let url = URL(string : str)
+            let imageTask = session.dataTask(with: url!, completionHandler: { data, response, error in
+                  if(data != nil){
+//                        imageView.image = UIImage(data: data!)
+                        
+                              DispatchQueue.main.async {
+                                    imageView.image = UIImage(data: data!)
+                                    self.tableView.reloadData()
+                              }
+                  }else {
+                       imageView.image = UIImage(named: "avatar.png")
+                  }
+            })
+            imageTask.resume()
+      }
+    
+    func getData(){
+      
+      
+        let session = URLSession.shared
+        let url = URL(string: "https://api.themoviedb.org/3/person/popular?api_key=6b93b25da5cdb9298216703c40a31832&language=en-US&page=1")!
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+
+            
+            do {
+                  if (data != nil ){
+                        // imageview.image = UIImage(data)
+                  let jsonObject = try JSONSerialization.jsonObject(with: data!)
+                  let dictionary = jsonObject as? NSDictionary
+                  let results = dictionary?["results"] as? [NSDictionary]
+                  for result in results!{
+                        let person = Person()
+                        person.id = result["id"] as? Int
+                        person.name = result["name"] as? String
+                        person.popularity = result["popularity"] as? Double
+                        person.path = result["profile_path"] as? String
+                        self.arrayOfPersons.append(person)
+                        }
+                  DispatchQueue.main.async {
+                              self.tableView.reloadData()
+                        }
+                  }
+            } catch {
+                  print("JSON error: \(error.localizedDescription)")
+            }
+        })
+      
+
+        task.resume()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return arrayOfPersons.count
     }
+      
+      override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return CGFloat(100)
+      }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+      
+        uiImageview = cell.viewWithTag(1) as? UIImageView
+        uiLable = cell.viewWithTag(2) as? UILabel
+        let urlString = "https://image.tmdb.org/t/p/w500/"+arrayOfPersons[indexPath.row].path!
+        getImage(str: urlString, imageView: uiImageview)
+        uiLable.text = arrayOfPersons[indexPath.row].name
+      
         return cell
     }
-    */
+      
+      
+      
 
     /*
     // Override to support conditional editing of the table view.
@@ -88,3 +156,10 @@ class TableViewController: UITableViewController {
     */
 
 }
+
+
+
+
+
+
+
