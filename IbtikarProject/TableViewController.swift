@@ -13,7 +13,7 @@ class TableViewController: UITableViewController {
       var arrayOfPersons : [Person] = []
       var uiLable : UILabel!
       var uiImageview : UIImageView!
-
+     
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,20 +23,26 @@ class TableViewController: UITableViewController {
     }
       
       
-      func getImage(str : String, imageView : UIImageView ){
+      func getImage(str : String , indx : IndexPath){
             
             let session = URLSession.shared
             let url = URL(string : str)
+            
             let imageTask = session.dataTask(with: url!, completionHandler: { data, response, error in
                   if(data != nil){
-//                        imageView.image = UIImage(data: data!)
-                        
+
                               DispatchQueue.main.async {
-                                    imageView.image = UIImage(data: data!)
+                                    let currentCell = self.tableView.cellForRow(at: indx)
+                                    self.uiImageview = currentCell?.viewWithTag(1) as? UIImageView
+                                    self.uiImageview?.image = UIImage(data: data!)
                                     self.tableView.reloadData()
                               }
                   }else {
-                       imageView.image = UIImage(named: "avatar.png")
+                       
+                        DispatchQueue.main.async{
+                              self.uiImageview?.image = UIImage(named: "avatar.png")
+                              self.tableView.reloadData()
+                        }
                   }
             })
             imageTask.resume()
@@ -98,11 +104,16 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
       
-        uiImageview = cell.viewWithTag(1) as? UIImageView
+//        uiImageview = cell.viewWithTag(1) as? UIImageView
         uiLable = cell.viewWithTag(2) as? UILabel
         let urlString = "https://image.tmdb.org/t/p/w500/"+arrayOfPersons[indexPath.row].path!
-        getImage(str: urlString, imageView: uiImageview)
+      
+        getImage(str: urlString , indx: indexPath)
+     
         uiLable.text = arrayOfPersons[indexPath.row].name
+      
+      
+      
       
         return cell
     }
