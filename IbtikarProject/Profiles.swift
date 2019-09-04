@@ -7,13 +7,13 @@
 //
 
 import Foundation
-class Profile :NSObject{
+class profiles :NSObject{
    
-    var filePath : String?
+    var file_path : String?
     
     
     override init() {
-        filePath = ""
+        file_path = ""
     }
     
     
