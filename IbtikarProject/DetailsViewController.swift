@@ -37,8 +37,8 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
   
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mainCell", for: indexPath)
+        
+        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "mainCell", for: indexPath)
 
 
         uiLableMain = cell.viewWithTag(2) as? UILabel
@@ -82,18 +82,28 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         let imageTask = session.dataTask(with: url!, completionHandler: { data, response, error in
             if(data != nil){
                 
+                print(data!)
+                
                 DispatchQueue.main.async {
                     
                     if(type=="subCell"){
+                        print(type)
                     let currentCell = self.myCollectionView.cellForItem(at: indx)
                     self.uiImageSub = currentCell?.viewWithTag(3) as? UIImageView
                     self.uiImageSub.image = UIImage(data: data!)
+                        print(self.uiImageSub ?? 0)
                     self.myCollectionView.reloadData()
+                    
+                        
                     }else if(type=="mainCell"){
-                        let currentCell = self.myCollectionView.cellForItem(at: indx)
-                        self.uiImageSub = currentCell?.viewWithTag(1) as? UIImageView
-                        self.uiImageSub.image = UIImage(data: data!)
+                        print(type)
+                   
+                        let current = self.myCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indx)
+                        self.uiImageMain = current?.viewWithTag(1) as? UIImageView
+                        self.uiImageMain.image = UIImage(data: data!)
+                        print(self.uiImageMain ?? 0)
                         self.myCollectionView.reloadData()
+                        self.myCollectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
                     }
                     
                   
