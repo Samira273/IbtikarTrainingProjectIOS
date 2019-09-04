@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class profiles :NSObject{
+class Profiles :NSObject{
    
     var file_path : String?
     

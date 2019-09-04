@@ -11,7 +11,7 @@ import UIKit
 class DetailsViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource{
     
     @IBOutlet weak var myCollectionView: UICollectionView!
-    var arrayOfProfiles : [Profile] = []
+    var arrayOfProfiles : [Profiles] = []
     var uiImageSub : UIImageView!
     var uiImageMain : UIImageView!
     var uiLableMain : UILabel!
@@ -27,7 +27,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "subCell", for: indexPath)
 
-        let urlString = "https://image.tmdb.org/t/p/w500/"+arrayOfProfiles[indexPath.row].filePath!
+        let urlString = "https://image.tmdb.org/t/p/w500/"+arrayOfProfiles[indexPath.row].file_path!
          getImage(str: urlString , indx: indexPath, type: "subCell")
       
         return cell
@@ -67,6 +67,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         myCollectionView.delegate = self
         
         getPaths()
+       // print(arrayOfProfiles[0].filePath ?? "default value")
 //        self.myCollectionView.reloadData()
        
     }
@@ -123,20 +124,33 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
     func getPaths(){
         
         let str = "\(per.id ?? 0)"
-        let url = URL(string : "https://api.themoviedb.org/3/person/"+str + "/images?api_key=6b93b25da5cdb9298216703c40a31832")
+        print(str)
+        let url = URL(string : "https://api.themoviedb.org/3/person/"+str + "/images?api_key=6b93b25da5cdb9298216703c40a31832")!
+        
+        print(url)
+        
         let session = URLSession.shared
-        let pathsTask = session.dataTask(with: url!, completionHandler: { data , response, error in
+        
+        let pathsTask = session.dataTask(with: url , completionHandler: { data , response, error in
+            
+            
             do{
+            
             if (data != nil ){
                
+                print(data ??  "  " + "de el data")
                 let jsonObject = try JSONSerialization.jsonObject(with: data!)
+                print(jsonObject)
+                
                 let dictionary = jsonObject as? NSDictionary
                 let profiles = dictionary?["profiles"] as? [NSDictionary]
+                print(jsonObject)
                 for profile in profiles!{
-                    let pro = Profile()
-                    pro.filePath = profile["file_path"] as? String
+                    let pro = Profiles()
+                    pro.file_path = profile["file_path"] as? String
+                    print(pro.file_path ?? "default value")
                     self.arrayOfProfiles.append(pro)
-                }
+                    }
                 }
             }catch {
                 print("JSON error: \(error.localizedDescription)")

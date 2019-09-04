@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		840B5BAA231E848100EF440C /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 840B5BA9231E848000EF440C /* avatar.png */; };
 		842CE273231E9F250049E48A /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CE272231E9F250049E48A /* DetailsViewController.swift */; };
-		842CE277231EC08F0049E48A /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CE276231EC08F0049E48A /* Profile.swift */; };
+		842CE277231EC08F0049E48A /* Profiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CE276231EC08F0049E48A /* Profiles.swift */; };
 		84D11CAD231D181F00A1FE88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CAC231D181F00A1FE88 /* AppDelegate.swift */; };
 		84D11CAF231D181F00A1FE88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CAE231D181F00A1FE88 /* ViewController.swift */; };
 		84D11CB2231D181F00A1FE88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D11CB0231D181F00A1FE88 /* Main.storyboard */; };
@@ -41,7 +41,7 @@
 /* Begin PBXFileReference section */
 		840B5BA9231E848000EF440C /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
 		842CE272231E9F250049E48A /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
-		842CE276231EC08F0049E48A /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		842CE276231EC08F0049E48A /* Profiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
 		84D11CA9231D181F00A1FE88 /* IbtikarProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IbtikarProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D11CAC231D181F00A1FE88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84D11CAE231D181F00A1FE88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
@@ -117,7 +117,7 @@
 				84D11CDA231D1E3B00A1FE88 /* TableViewController.swift */,
 				84D11CE4231D3EC400A1FE88 /* Person.swift */,
 				842CE272231E9F250049E48A /* DetailsViewController.swift */,
-				842CE276231EC08F0049E48A /* Profile.swift */,
+				842CE276231EC08F0049E48A /* Profiles.swift */,
 			);
 			path = IbtikarProject;
 			sourceTree = "<group>";
@@ -273,7 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84D11CAF231D181F00A1FE88 /* ViewController.swift in Sources */,
-				842CE277231EC08F0049E48A /* Profile.swift in Sources */,
+				842CE277231EC08F0049E48A /* Profiles.swift in Sources */,
 				84D11CDB231D1E3B00A1FE88 /* TableViewController.swift in Sources */,
 				84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */,
 				84D11CAD231D181F00A1FE88 /* AppDelegate.swift in Sources */,
