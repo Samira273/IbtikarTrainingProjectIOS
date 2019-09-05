@@ -11,7 +11,7 @@ import UIKit
 class DetailsViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource{
     
     @IBOutlet weak var myCollectionView: UICollectionView!
-    var arrayOfProfiles : [Profiles] = []
+   
     var arrayOfPaths : [String] = []
     var uiImageSub : UIImageView!
     var uiImageMain : UIImageView!
