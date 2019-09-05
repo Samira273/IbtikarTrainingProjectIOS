@@ -17,7 +17,28 @@ class ImageViewController: UIViewController {
     @IBAction func goBackToCollection(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
     @IBAction func saveImage(_ sender: Any) {
+        
+        if(myImageView.image != nil){
+        
+            UIImageWriteToSavedPhotosAlbum(myImageView.image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+            
+        }
+    }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
     
     @IBOutlet weak var myImageView: UIImageView!
