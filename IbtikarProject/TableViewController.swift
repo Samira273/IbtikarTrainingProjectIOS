@@ -22,18 +22,8 @@ class TableViewController: UITableViewController {
             super.viewDidLoad()
             
             activity.isHidden = true
-//
-//            // Initialize the refresh control.
-//
-////            self.myRefreshControler.backgroundColor = [UIColor, purpleColor];
-////            self.myRefreshControler.tintColor = [UIColor whiteColor];
-//            self.myRefreshControler.backgroundColor = UIColor.purple
-//            self.myRefreshControler.tintColor = UIColor.white
-//
-////            [self.refreshControl, addTarget:self option:@selector(getLatestLoans) forControlEvents:UIControlEventValueChanged];
-//
-//            self.myRefreshControler.attributedTitle = NSAttributedString(string: "Pull to refresh")
-//            self.myRefreshControler.addTarget(self, action: #selector(self.refresh(_:) ), for: UIControl.Event.valueChanged)
+
+          self.myRefreshControler.attributedTitle = NSAttributedString(string: "Refreshing")
             
             myRefreshControler.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
             tableView.refreshControl = myRefreshControler
@@ -84,6 +74,28 @@ class TableViewController: UITableViewController {
 //            })
 //            imageTask.resume()
       }
+      
+      
+      
+//    func downloadImageData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+////            URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+////      }
+//
+//
+//      func setImage(from url: URL, indx : IndexPath){
+//
+//            downloadImageData(from: url) { data, response, error in
+//                  guard let data = data, error == nil else { return }
+//                  DispatchQueue.main.async() {
+//                        let currentCell = self.tableView.cellForRow(at: indx)
+//                        self.uiImageview = currentCell?.viewWithTag(1) as? UIImageView
+//                        currentCell?.imageView?.image = UIImage(data: data)
+//                        self.tableView.reloadData()
+//                  }
+//            }
+//      }
+      
+      
       
       func getData(page : Int){
             
@@ -154,16 +166,36 @@ class TableViewController: UITableViewController {
             activity.isHidden = true
             activity.stopAnimating()
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            self.uiLable = cell.viewWithTag(2) as? UILabel
+            self.uiImageview = cell.viewWithTag(1) as? UIImageView
             
-            //        uiImageview = cell.viewWithTag(1) as? UIImageView
-            uiLable = cell.viewWithTag(2) as? UILabel
             if(arrayOfPersons[indexPath.row].path != nil){
                   
             let urlString = "https://image.tmdb.org/t/p/w500/"+arrayOfPersons[indexPath.row].path!
-            
-            getImage(str: urlString , indx: indexPath)
-            
-            uiLable.text = arrayOfPersons[indexPath.row].name
+            let url = URL(string: urlString)
+                  
+                  if (url != nil){
+                        
+                        self.uiLable.text = self.arrayOfPersons[indexPath.row].name
+                        uiImageview.imageFromUrl(urlString: urlString, indx: indexPath)
+                         
+                        
+//                        setImage(from: url!, indx: indexPath)
+//                        DispatchQueue.global().async {
+//                              let data = try? Data(contentsOf: url!)
+//                              DispatchQueue.main.async {
+//
+//                                    let cell = self.tableView.cellForRow(at: indexPath)
+//                                    self.uiImageview = cell?.viewWithTag(1) as? UIImageView
+//                                    self.uiLable = cell?.viewWithTag(2) as? UILabel
+//                                    if(data != nil){
+//                                          self.uiImageview.image = UIImage(data: data!)
+//                                          self.uiLable.text = self.arrayOfPersons[indexPath.row].name
+//                                    }
+//
+//                              }
+//                        }
+                  }
             }
             
             return cell
@@ -243,6 +275,29 @@ class TableViewController: UITableViewController {
        }
        */
       
+}
+
+extension UIImageView {
+      public func imageFromUrl(urlString: String , indx : IndexPath) {
+            
+            let url = URL(string: urlString)
+            
+            if(url != nil){
+                  
+              downloadImageData(from: url!) { data, response, error in
+              guard let data = data, error == nil else { return }
+                  DispatchQueue.main.async() {
+                             self.image = UIImage(data: data)
+                        
+                                    }
+                              }
+            }
+      }
+      
+      func downloadImageData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+                  URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+            }
+
 }
 
 
