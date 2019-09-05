@@ -35,19 +35,27 @@ class TableViewController: UITableViewController {
 //            self.myRefreshControler.attributedTitle = NSAttributedString(string: "Pull to refresh")
 //            self.myRefreshControler.addTarget(self, action: #selector(self.refresh(_:) ), for: UIControl.Event.valueChanged)
             
-            self.refreshControl?.addTarget(self, action: Selector(("refresh:")), for: UIControl.Event.valueChanged)
+            myRefreshControler.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+            tableView.refreshControl = myRefreshControler
             
             
             getData(page: pageNo)
             
             
       }
-//
-//      @objc func refresh(sender:AnyObject) {
-//            // Code to refresh table view
-//            print(pageNo)
-//      }
-//
+
+      @objc func refresh(sender:AnyObject) {
+            // Code to refresh table view
+            
+            print("refresh is choosen")
+            arrayOfPersons.removeAll()
+            self.pageNo = 1
+            self.isDataLoading = false
+            getData(page: pageNo)
+            self.refreshControl?.endRefreshing()
+            
+      }
+
      
       
 
