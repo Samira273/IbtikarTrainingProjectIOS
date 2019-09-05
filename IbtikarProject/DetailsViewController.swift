@@ -12,6 +12,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
     
     @IBOutlet weak var myCollectionView: UICollectionView!
     var arrayOfProfiles : [Profiles] = []
+    var arrayOfPaths : [String] = []
     var uiImageSub : UIImageView!
     var uiImageMain : UIImageView!
     var uiLableMain : UILabel!
@@ -19,16 +20,24 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
     var per = Person()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return arrayOfProfiles.count
+        print("no of paths ====>\(arrayOfPaths.count)")
+        return arrayOfPaths.count
+    
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "subCell", for: indexPath)
+        
+        print("subcell")
+       
 
-        let urlString = "https://image.tmdb.org/t/p/w500/"+arrayOfProfiles[indexPath.row].file_path!
-         getImage(str: urlString , indx: indexPath, type: "subCell")
+        let urlString = "https://image.tmdb.org/t/p/w500/"+arrayOfPaths[indexPath.row]
+            
+          print(urlString + " url for subimage")
+            getImage(str: urlString , indx: indexPath, type: "subCell")
+            
+     
       
         return cell
         
@@ -44,6 +53,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         uiLableMain = cell.viewWithTag(2) as? UILabel
         uiLableMain.text = per.name
         let urlString = "https://image.tmdb.org/t/p/w500/"+per.path!
+        print(urlString + "url for main image")
         getImage(str: urlString, indx: indexPath, type: "mainCell")
         return cell
     }
@@ -63,12 +73,13 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getPaths()
         myCollectionView.dataSource = self
         myCollectionView.delegate = self
         
-        getPaths()
+       
        // print(arrayOfProfiles[0].filePath ?? "default value")
-//        self.myCollectionView.reloadData()
+      self.myCollectionView.reloadData()
        
     }
     
@@ -83,31 +94,35 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         let imageTask = session.dataTask(with: url!, completionHandler: { data, response, error in
             if(data != nil){
                 
-                print(data!)
+              
                 
                 DispatchQueue.main.async {
                     
                     if(type=="subCell"){
-                        print(type)
-                    let currentCell = self.myCollectionView.cellForItem(at: indx)
-                    self.uiImageSub = currentCell?.viewWithTag(3) as? UIImageView
-                    self.uiImageSub.image = UIImage(data: data!)
-                        print(self.uiImageSub ?? 0)
-                    self.myCollectionView.reloadData()
+                   
+                            let currentCell = self.myCollectionView.cellForItem(at: indx)
+                            self.uiImageSub = currentCell?.viewWithTag(3) as? UIImageView
+                        if ( data != nil){
+                                self.uiImageSub.image = UIImage(data: data!)
+//                            self.myCollectionView.insertItems(at: [indx])
+//                                self.myCollectionView.reloadData()
+                        }
                     
                         
-                    }else if(type=="mainCell"){
-                        print(type)
+                    }  else if(type=="mainCell"){
+                
                    
                         let current = self.myCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indx)
                         self.uiImageMain = current?.viewWithTag(1) as? UIImageView
-                        self.uiImageMain.image = UIImage(data: data!)
-                        print(self.uiImageMain ?? 0)
-                        self.myCollectionView.reloadData()
-                        self.myCollectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
+                        
+                        if(data != nil){
+                                self.uiImageMain.image = UIImage(data: data!)
+        //                        self.myCollectionView.reloadData()
+                                self.myCollectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
+                        }
                     }
                     
-                  
+                
                     
                    
                 }
@@ -124,7 +139,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
     func getPaths(){
         
         let str = "\(per.id ?? 0)"
-        print(str)
+      
         let url = URL(string : "https://api.themoviedb.org/3/person/"+str + "/images?api_key=6b93b25da5cdb9298216703c40a31832")!
         
         print(url)
@@ -138,19 +153,25 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
             
             if (data != nil ){
                
-                print(data ??  "  " + "de el data")
+                
                 let jsonObject = try JSONSerialization.jsonObject(with: data!)
                 print(jsonObject)
                 
                 let dictionary = jsonObject as? NSDictionary
                 let profiles = dictionary?["profiles"] as? [NSDictionary]
-                print(jsonObject)
+        
                 for profile in profiles!{
-                    let pro = Profiles()
-                    pro.file_path = profile["file_path"] as? String
-                    print(pro.file_path ?? "default value")
-                    self.arrayOfProfiles.append(pro)
+
+                    let path = profile["file_path"] as? String
+                    if (path != nil){
+                         self.arrayOfPaths.append(path!)
+                        }
+                   
                     }
+                DispatchQueue.main.async{
+                   self.myCollectionView.reloadData()
+                }
+                
                 }
             }catch {
                 print("JSON error: \(error.localizedDescription)")

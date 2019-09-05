@@ -153,6 +153,7 @@ class TableViewController: UITableViewController {
       
       override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of rows
+            print("no of persons is \(arrayOfPersons.count)")
             return arrayOfPersons.count
       }
       
