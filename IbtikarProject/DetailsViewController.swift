@@ -58,6 +58,18 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         return cell
     }
     
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
+//        if(arrayOfPaths[indexPath.row] != nil){
+            imageVC.path = arrayOfPaths[indexPath.row]
+            self.present(imageVC, animated: true, completion: nil)
+//        }
+    }
+    
+    
+    
+    
    
     
    
@@ -67,18 +79,25 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
     }
     
     
-  
+    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        
+        let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
+        if(per.path != nil){
+            imageVC.path = per.path!
+            self.present(imageVC, animated: true, completion: nil)
+        }
+    }
    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
         getPaths()
         myCollectionView.dataSource = self
         myCollectionView.delegate = self
         
-       
-       // print(arrayOfProfiles[0].filePath ?? "default value")
       self.myCollectionView.reloadData()
        
     }
@@ -117,7 +136,15 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
                         
                         if(data != nil){
                                 self.uiImageMain.image = UIImage(data: data!)
+                            
         //                        self.myCollectionView.reloadData()
+                            
+                            let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+                            
+                            if(self.uiImageMain != nil){
+                                self.uiImageMain.addGestureRecognizer(tap)
+                                self.uiImageMain.isUserInteractionEnabled = true
+                            }
                                 self.myCollectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
                         }
                     }
