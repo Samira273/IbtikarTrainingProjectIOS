@@ -10,20 +10,27 @@ import UIKit
 
 class ImageViewController: UIViewController {
    
-  
+    var baseUrl : String = "https://image.tmdb.org/t/p/w500/"
     var path : String = ""
     
     
     @IBAction func goBackToCollection(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     @IBAction func saveImage(_ sender: Any) {
     }
     
     @IBOutlet weak var myImageView: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
         // Do any additional setup after loading the view.
+        
+       
+        myImageView.imageFromUrl(urlString: baseUrl + path)
+        
     }
     
 
@@ -38,3 +45,4 @@ class ImageViewController: UIViewController {
     */
 
 }
+

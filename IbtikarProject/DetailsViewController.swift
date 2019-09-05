@@ -63,6 +63,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
 //        if(arrayOfPaths[indexPath.row] != nil){
             imageVC.path = arrayOfPaths[indexPath.row]
+        
             self.present(imageVC, animated: true, completion: nil)
 //        }
     }
@@ -85,6 +86,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
         if(per.path != nil){
             imageVC.path = per.path!
+           
             self.present(imageVC, animated: true, completion: nil)
         }
     }

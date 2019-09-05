@@ -178,7 +178,7 @@ class TableViewController: UITableViewController {
                   if (url != nil){
                         
                         self.uiLable.text = self.arrayOfPersons[indexPath.row].name
-                        uiImageview.imageFromUrl(urlString: urlString, indx: indexPath)
+                        uiImageview.imageFromUrl(urlString: urlString)
                          
                         
 //                        setImage(from: url!, indx: indexPath)
@@ -279,7 +279,7 @@ class TableViewController: UITableViewController {
 }
 
 extension UIImageView {
-      public func imageFromUrl(urlString: String , indx : IndexPath) {
+      public func imageFromUrl(urlString: String ) {
             
             let url = URL(string: urlString)
             
