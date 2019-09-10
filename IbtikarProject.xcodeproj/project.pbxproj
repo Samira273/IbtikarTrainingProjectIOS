@@ -19,6 +19,8 @@
 		84D11CCD231D182C00A1FE88 /* IbtikarProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CCC231D182C00A1FE88 /* IbtikarProjectUITests.swift */; };
 		84D11CDB231D1E3B00A1FE88 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CDA231D1E3B00A1FE88 /* TableViewController.swift */; };
 		84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CE4231D3EC400A1FE88 /* Person.swift */; };
+		CE0297822325211D0070FB29 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0297812325211D0070FB29 /* ImageViewController.swift */; };
+		CE02978423252CAC0070FB29 /* searchPOJO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02978323252CAC0070FB29 /* searchPOJO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		84D11CCE231D182C00A1FE88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84D11CDA231D1E3B00A1FE88 /* TableViewController.swift */ = {isa = PBXFileReference; indentWidth = 6; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; tabWidth = 17; };
 		84D11CE4231D3EC400A1FE88 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		CE0297812325211D0070FB29 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		CE02978323252CAC0070FB29 /* searchPOJO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchPOJO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,7 @@
 		84D11CAB231D181F00A1FE88 /* IbtikarProject */ = {
 			isa = PBXGroup;
 			children = (
+				CE0297812325211D0070FB29 /* ImageViewController.swift */,
 				840B5BA9231E848000EF440C /* avatar.png */,
 				84D11CAC231D181F00A1FE88 /* AppDelegate.swift */,
 				84D11CAE231D181F00A1FE88 /* ViewController.swift */,
@@ -118,6 +123,7 @@
 				84D11CE4231D3EC400A1FE88 /* Person.swift */,
 				842CE272231E9F250049E48A /* DetailsViewController.swift */,
 				842CE276231EC08F0049E48A /* Profiles.swift */,
+				CE02978323252CAC0070FB29 /* searchPOJO.swift */,
 			);
 			path = IbtikarProject;
 			sourceTree = "<group>";
@@ -273,8 +279,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				84D11CAF231D181F00A1FE88 /* ViewController.swift in Sources */,
+				CE02978423252CAC0070FB29 /* searchPOJO.swift in Sources */,
 				842CE277231EC08F0049E48A /* Profiles.swift in Sources */,
 				84D11CDB231D1E3B00A1FE88 /* TableViewController.swift in Sources */,
+				CE0297822325211D0070FB29 /* ImageViewController.swift in Sources */,
 				84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */,
 				84D11CAD231D181F00A1FE88 /* AppDelegate.swift in Sources */,
 				842CE273231E9F250049E48A /* DetailsViewController.swift in Sources */,

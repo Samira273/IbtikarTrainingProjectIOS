@@ -20,7 +20,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
     var per = Person()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("no of paths ====>\(arrayOfPaths.count)")
+     
         return arrayOfPaths.count
     
     }
@@ -52,9 +52,12 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
 
         uiLableMain = cell.viewWithTag(2) as? UILabel
         uiLableMain.text = per.name
-        let urlString = "https://image.tmdb.org/t/p/w500/"+per.path!
-        print(urlString + "url for main image")
+        if let temp = per.path{
+        let urlString = "https://image.tmdb.org/t/p/w500/"+temp
         getImage(str: urlString, indx: indexPath, type: "mainCell")
+        } else{
+           ( cell.viewWithTag(1) as! UIImageView).image = UIImage(named: "avatar")
+        }
         return cell
     }
     

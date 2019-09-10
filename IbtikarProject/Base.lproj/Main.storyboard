@@ -18,13 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="m6g-vu-BnM">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="Awy-Jb-UB9">
-                            <rect key="frame" x="0.0" y="72" width="375" height="20"/>
+                            <rect key="frame" x="0.0" y="627" width="375" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="t6A-iG-lQb">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t6A-iG-lQb" id="iwk-lZ-ZRR">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -35,7 +40,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPe-e0-pKx">
-                                            <rect key="frame" x="202" y="11" width="130" height="22"/>
+                                            <rect key="frame" x="170" y="11" width="189" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -50,9 +55,12 @@
                             <outlet property="delegate" destination="lsM-Zf-q1v" id="vSh-dO-Iyq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="r0N-tM-vJn"/>
+                    <navigationItem key="navigationItem" id="r0N-tM-vJn">
+                        <nil key="title"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="activity" destination="Awy-Jb-UB9" id="zeT-bK-qGy"/>
+                        <outlet property="searchField" destination="m6g-vu-BnM" id="mOq-Ee-8J6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b7X-At-c21" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -81,7 +89,7 @@
                                 </items>
                             </navigationBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UHQ-yy-x0Z">
-                                <rect key="frame" x="19" y="83" width="337" height="584"/>
+                                <rect key="frame" x="0.0" y="131" width="337" height="584"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sEp-Eb-ZjK">
