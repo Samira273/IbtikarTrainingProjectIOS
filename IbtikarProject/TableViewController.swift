@@ -10,14 +10,15 @@ import UIKit
 
 class TableViewController: UITableViewController, UISearchBarDelegate {
       @IBOutlet weak var activity: UIActivityIndicatorView!
-      
-      var arrayOfPersons : [Person] = []
+      var dataFetchModel = DataFetchModel()
+//      var arrayOfPersons : [Person] = []
       var uiLable : UILabel!
       var uiImageview : UIImageView!
      // var isDataLoading:Bool=false
       var pageNo = 1
       let myRefreshControler = UIRefreshControl()
-      var apiTotalPages : Int?
+//      var apiTotalPages : Int? 500
+      let apiTotalPages = 500
       var searchWasDone : Bool = false
       var defaultURL = ""
       let peopleURL = "https://api.themoviedb.org/3/person/popular?api_key=6b93b25da5cdb9298216703c40a31832&language=en-US&page="
@@ -44,12 +45,23 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             searchBar.endEditing(true)
             searchBar.text = ""
             self.pageNo = 1
-            arrayOfPersons = []
+//            arrayOfPersons = []
+            dataFetchModel.arrayOfPersons = []
             
-            getData(pageNumber: 1, urlString: peopleURL)
+//            getData(pageNumber: 1, urlString: peopleURL)
+            dataFetchModel.loadDataOf(url: peopleURL, forPageNO: 1, completion: renderData)
+
             
             self.tableView.reloadData()
       }
+      
+      let renderData: (Bool) -> Void = { onSuccess in
+            if(onSuccess){
+                  print("data fetch completed")
+            }
+      }
+      
+      
 
       func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
@@ -70,7 +82,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
                   
                   let searchUrl = "https://api.themoviedb.org/3/search/person?api_key=6b93b25da5cdb9298216703c40a31832&language=en-US&query=\(searchKey?.replacingOccurrences(of: " ", with: "%20") ?? "")&include_adult=false&page="
                   
-                  getData(pageNumber: 1, urlString: searchUrl)
+//                  getData(pageNumber: 1, urlString: searchUrl)
+                  dataFetchModel.loadDataOf(url: searchUrl, forPageNO: 1, completion: renderData)
                   tableView.reloadData()
                   
             }
@@ -86,7 +99,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
                   let searchURL = "https://api.themoviedb.org/3/search/person?api_key=6b93b25da5cdb9298216703c40a31832&language=en-US&query=\(searchText.replacingOccurrences(of: " ", with: "%20"))&include_adult=false&page="
                   defaultURL = searchURL
                   pageNo = 1
-                  getData(pageNumber: 1, urlString: searchURL)
+//                  getData(pageNumber: 1, urlString: searchURL)
+                  dataFetchModel.loadDataOf(url: searchURL, forPageNO: 1, completion: renderData)
                   self.tableView.reloadData()
             }else{
                   self.tableView.reloadData()
@@ -116,7 +130,11 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             //   arrayOfPersons.removeAll()
             
             defaultURL = peopleURL
-            getData(pageNumber: 1, urlString: defaultURL)
+//            getData(pageNumber: 1, urlString: defaultURL)
+            print("before calling fetch")
+            dataFetchModel.loadDataOf(url: defaultURL, forPageNO: 1, completion: renderData)
+     
+            
       }
       
       @objc func refresh(sender:AnyObject) {
@@ -127,68 +145,69 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             searchBar.endEditing(true)
             self.pageNo = 1
          //   self.isDataLoading = false
-            getData(pageNumber: pageNo, urlString: defaultURL)
+//            getData(pageNumber: pageNo, urlString: defaultURL)
+            dataFetchModel.loadDataOf(url: defaultURL, forPageNO: pageNo, completion: renderData)
             self.refreshControl?.endRefreshing()
             
       }
       
       
-      
-      func getData(pageNumber : Int , urlString :String){
-            
-            
-            let session = URLSession.shared
-            let url = URL(string: urlString+"\(pageNumber)")!
-            
-            let task = session.dataTask(with: url, completionHandler: { data, response, error in
-                  
-                  
-                  do {
-                        if (data != nil ){
-                              
-                              let jsonObject = try JSONSerialization.jsonObject(with: data!)
-                              let dictionary = jsonObject as? NSDictionary
-                              
-                              
-                              DispatchQueue.main.async {
-                                    if pageNumber==1{
-                                          self.arrayOfPersons.removeAll()
-                                    }
-                                    
-                                    if let results = dictionary?["results"] as? [NSDictionary]{
-                                          
-                                          self.apiTotalPages = dictionary?["total_pages"] as? Int
-                                          
-                                          //                                          self.pageNo = dictionary?["page"] as? Int ?? 1
-                                          for result in results{
-                                                
-                                                let person = Person()
-                                                person.id = result["id"] as? Int
-                                                person.name = result["name"] as? String
-                                                person.popularity = result["popularity"] as? Double
-                                                person.path = result["profile_path"] as? String
-                                                self.arrayOfPersons.append(person)
-                                          }
-                                          self.pageNo += 1
-                                          //    self.isDataLoading = false
-                                          print ("the global page no is\(self.pageNo-1) totalpages is \(self.apiTotalPages ?? 0)")
-                                          
-                                          print("\(self.arrayOfPersons.count)")
-                                          self.tableView.reloadData()
-                                          
-                                    }
-                              }
-                        }
-                    
-                  } catch {
-                        print("JSON error: \(error.localizedDescription)")
-                  }
-            })
-            
-            
-            task.resume()
-      
-      }
+//
+//      func getData(pageNumber : Int , urlString :String){
+//
+//
+//            let session = URLSession.shared
+//            let url = URL(string: urlString+"\(pageNumber)")!
+//
+//            let task = session.dataTask(with: url, completionHandler: { data, response, error in
+//
+//
+//                  do {
+//                        if (data != nil ){
+//
+//                              let jsonObject = try JSONSerialization.jsonObject(with: data!)
+//                              let dictionary = jsonObject as? NSDictionary
+//
+//
+//                              DispatchQueue.main.async {
+//                                    if pageNumber==1{
+//                                          self.arrayOfPersons.removeAll()
+//                                    }
+//
+//                                    if let results = dictionary?["results"] as? [NSDictionary]{
+//
+//                                          self.apiTotalPages = dictionary?["total_pages"] as? Int
+//
+//                                          //                                          self.pageNo = dictionary?["page"] as? Int ?? 1
+//                                          for result in results{
+//
+//                                                let person = Person()
+//                                                person.id = result["id"] as? Int
+//                                                person.name = result["name"] as? String
+//                                                person.popularity = result["popularity"] as? Double
+//                                                person.path = result["profile_path"] as? String
+//                                                self.arrayOfPersons.append(person)
+//                                          }
+//                                          self.pageNo += 1
+//                                          //    self.isDataLoading = false
+//                                          print ("the global page no is\(self.pageNo-1) totalpages is \(self.apiTotalPages ?? 0)")
+//
+//                                          print("\(self.arrayOfPersons.count)")
+//                                          self.tableView.reloadData()
+//
+//                                    }
+//                              }
+//                        }
+//
+//                  } catch {
+//                        print("JSON error: \(error.localizedDescription)")
+//                  }
+//            })
+//
+//
+//            task.resume()
+//
+//      }
       
       // MARK: - Table view data source
       
@@ -200,7 +219,10 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
       override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of rows
             
-            return arrayOfPersons.count
+//            return arrayOfPersons.count
+            print("numberOfRowsInSection  \(dataFetchModel.arrayOfPersons.count)")
+//            return dataFetchModel.arrayOfPersons.count
+            return 20
       }
       
       override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -211,15 +233,16 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
       override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
            // if let no = apiTotalPages{
             
-            if indexPath.row == arrayOfPersons.count - 1 && pageNo <= apiTotalPages! {
+            if indexPath.row == dataFetchModel.arrayOfPersons.count - 1 && pageNo <= apiTotalPages {
                   
                   
                   //show loader
                   activity.isHidden = false
                   activity.startAnimating()
                   //  self.isDataLoading = true
-                  if pageNo <= apiTotalPages!{
-                        getData(pageNumber: pageNo, urlString: defaultURL)
+                  if pageNo <= apiTotalPages{
+//                        getData(pageNumber: pageNo, urlString: defaultURL)
+                        dataFetchModel.loadDataOf(url: defaultURL, forPageNO: pageNo, completion: renderData)
                   }
             }
    //   }
@@ -230,15 +253,15 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             self.uiLable = cell.viewWithTag(2) as? UILabel
             self.uiImageview = cell.viewWithTag(1) as? UIImageView
             
-            if arrayOfPersons[indexPath.row].path != nil  {
+            if dataFetchModel.arrayOfPersons[indexPath.row].path != nil  {
                   
-                  let urlString = "https://image.tmdb.org/t/p/w500/"+arrayOfPersons[indexPath.row].path!
+                  let urlString = "https://image.tmdb.org/t/p/w500/"+dataFetchModel.arrayOfPersons[indexPath.row].path!
                   //                  let url = URL(string: urlString)
                   uiImageview.imageFromUrl(urlString: urlString)
             }else{
                   self.uiImageview.image = UIImage(named: "avatar")
             }
-                  self.uiLable.text = self.arrayOfPersons[indexPath.row].name
+                  self.uiLable.text = dataFetchModel.arrayOfPersons[indexPath.row].name
 //
 //            if(arrayOfPersons[indexPath.row].path != nil){
 //
@@ -277,7 +300,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             let detailsVC : DetailsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailsVC") as! DetailsViewController
             
             //            let detailsVC : DetailsViewController = storyboard?.instantiateViewController(withIdentifier: "detailsVC") as! DetailsViewController
-            detailsVC.per = arrayOfPersons[indexPath.row]
+            detailsVC.per = dataFetchModel.arrayOfPersons[indexPath.row]
             
             self.present(detailsVC, animated: true, completion: nil)
       }
