@@ -67,3 +67,25 @@ class ImageViewController: UIViewController {
 
 }
 
+extension UIImageView {
+      public func imageFromUrl(urlString: String ) {
+
+            let url = URL(string: urlString)
+
+            if(url != nil){
+
+                  downloadImageData(from: url!) { data, response, error in
+                        guard let data = data, error == nil else { return }
+                        DispatchQueue.main.async() {
+                              self.image = UIImage(data: data)
+
+                        }
+                  }
+            }
+      }
+
+      func downloadImageData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+            URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+      }
+
+}

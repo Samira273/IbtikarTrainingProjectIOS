@@ -10,7 +10,6 @@
 		840B5BAA231E848100EF440C /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 840B5BA9231E848000EF440C /* avatar.png */; };
 		842CE273231E9F250049E48A /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CE272231E9F250049E48A /* DetailsViewController.swift */; };
 		84D11CAD231D181F00A1FE88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CAC231D181F00A1FE88 /* AppDelegate.swift */; };
-		84D11CAF231D181F00A1FE88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CAE231D181F00A1FE88 /* ViewController.swift */; };
 		84D11CB2231D181F00A1FE88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D11CB0231D181F00A1FE88 /* Main.storyboard */; };
 		84D11CB4231D182C00A1FE88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84D11CB3231D182C00A1FE88 /* Assets.xcassets */; };
 		84D11CB7231D182C00A1FE88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D11CB5231D182C00A1FE88 /* LaunchScreen.storyboard */; };
@@ -19,6 +18,7 @@
 		84D11CDB231D1E3B00A1FE88 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CDA231D1E3B00A1FE88 /* TableViewController.swift */; };
 		84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CE4231D3EC400A1FE88 /* Person.swift */; };
 		CE0297822325211D0070FB29 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0297812325211D0070FB29 /* ImageViewController.swift */; };
+		CE2097DC2328EA3100748635 /* ImageFetchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2097DB2328EA3100748635 /* ImageFetchModel.swift */; };
 		CE7141812327FEF7004D3A46 /* DataFetchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7141802327FEF7004D3A46 /* DataFetchModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +44,6 @@
 		842CE272231E9F250049E48A /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		84D11CA9231D181F00A1FE88 /* IbtikarProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IbtikarProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D11CAC231D181F00A1FE88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84D11CAE231D181F00A1FE88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 4; };
 		84D11CB1231D181F00A1FE88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84D11CB3231D182C00A1FE88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84D11CB6231D182C00A1FE88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,6 +57,7 @@
 		84D11CDA231D1E3B00A1FE88 /* TableViewController.swift */ = {isa = PBXFileReference; indentWidth = 6; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; tabWidth = 17; };
 		84D11CE4231D3EC400A1FE88 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		CE0297812325211D0070FB29 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		CE2097DB2328EA3100748635 /* ImageFetchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchModel.swift; sourceTree = "<group>"; };
 		CE7141802327FEF7004D3A46 /* DataFetchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetchModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,17 +109,14 @@
 		84D11CAB231D181F00A1FE88 /* IbtikarProject */ = {
 			isa = PBXGroup;
 			children = (
+				CE2097DA2328DC2E00748635 /* Controllers */,
 				CE71417F2327FE8C004D3A46 /* Model */,
-				CE0297812325211D0070FB29 /* ImageViewController.swift */,
 				840B5BA9231E848000EF440C /* avatar.png */,
 				84D11CAC231D181F00A1FE88 /* AppDelegate.swift */,
-				84D11CAE231D181F00A1FE88 /* ViewController.swift */,
 				84D11CB0231D181F00A1FE88 /* Main.storyboard */,
 				84D11CB3231D182C00A1FE88 /* Assets.xcassets */,
 				84D11CB5231D182C00A1FE88 /* LaunchScreen.storyboard */,
 				84D11CB8231D182C00A1FE88 /* Info.plist */,
-				84D11CDA231D1E3B00A1FE88 /* TableViewController.swift */,
-				842CE272231E9F250049E48A /* DetailsViewController.swift */,
 			);
 			path = IbtikarProject;
 			sourceTree = "<group>";
@@ -142,11 +139,22 @@
 			path = IbtikarProjectUITests;
 			sourceTree = "<group>";
 		};
+		CE2097DA2328DC2E00748635 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				84D11CDA231D1E3B00A1FE88 /* TableViewController.swift */,
+				CE0297812325211D0070FB29 /* ImageViewController.swift */,
+				842CE272231E9F250049E48A /* DetailsViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		CE71417F2327FE8C004D3A46 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				CE7141802327FEF7004D3A46 /* DataFetchModel.swift */,
 				84D11CE4231D3EC400A1FE88 /* Person.swift */,
+				CE2097DB2328EA3100748635 /* ImageFetchModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -283,10 +291,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84D11CAF231D181F00A1FE88 /* ViewController.swift in Sources */,
 				84D11CDB231D1E3B00A1FE88 /* TableViewController.swift in Sources */,
 				CE0297822325211D0070FB29 /* ImageViewController.swift in Sources */,
 				84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */,
+				CE2097DC2328EA3100748635 /* ImageFetchModel.swift in Sources */,
 				84D11CAD231D181F00A1FE88 /* AppDelegate.swift in Sources */,
 				CE7141812327FEF7004D3A46 /* DataFetchModel.swift in Sources */,
 				842CE273231E9F250049E48A /* DetailsViewController.swift in Sources */,
