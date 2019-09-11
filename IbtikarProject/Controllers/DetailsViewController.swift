@@ -139,7 +139,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
                         let current = self.myCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indx)
                         self.uiImageMain = current?.viewWithTag(1) as? UIImageView
                         
-                        if(data != nil){
+                        if(data != nil && self.uiImageMain != nil){
                                 self.uiImageMain.image = UIImage(data: data!)
                             
         //                        self.myCollectionView.reloadData()

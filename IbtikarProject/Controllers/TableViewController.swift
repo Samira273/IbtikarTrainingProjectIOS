@@ -54,7 +54,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             bringAndRender(url: peopleURL, page: 1)
             
             
-            self.tableView.reloadData()
+//            self.tableView.reloadData()
       }
       
       
@@ -117,7 +117,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
                               self.noOfCells = self.dataFetchModel.arrayOfPersons.count
                               self.tableView.reloadData()
                         }
-                        
                   }
             }
             dataFetchModel.loadDataOf(url: url, forPageNO: page, completion: renderData)
@@ -159,9 +158,6 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             searchBar.resignFirstResponder()
             searchBar.endEditing(true)
             self.pageNo = 1
-            //   self.isDataLoading = false
-            //            getData(pageNumber: pageNo, urlString: defaultURL)
-            //            dataFetchModel.loadDataOf(url: defaultURL, forPageNO: pageNo, completion: renderData)
             bringAndRender(url: defaultURL, page: pageNo)
             self.refreshControl?.endRefreshing()
             
@@ -177,11 +173,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
       }
       
       override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            // #warning Incomplete implementation, return the number of rows
             
-            //            return arrayOfPersons.count
-            print("numberOfRowsInSection  \(dataFetchModel.arrayOfPersons.count)")
-            //            return dataFetchModel.arrayOfPersons.count
             return noOfCells
       }
       
@@ -192,6 +184,8 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
       
       override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             // if let no = apiTotalPages{
+            
+          
             
             if indexPath.row == dataFetchModel.arrayOfPersons.count - 1 && pageNo <= apiTotalPages {
                   
@@ -214,14 +208,18 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             self.uiImageview = cell.viewWithTag(1) as? UIImageView
             
             if dataFetchModel.arrayOfPersons[indexPath.row].path != nil  {
+                  
                   let urlString = "https://image.tmdb.org/t/p/w500/"+dataFetchModel.arrayOfPersons[indexPath.row].path!
+                 
                   let renderImage : (Data , String) -> Void = { (data , url) in
-                        print(urlString+" image url")
-                        print(url+" confirming image url")
-                        if url == urlString{
-                              DispatchQueue.main.async {
+                        DispatchQueue.main.async {
+                              
+                              if url == urlString{
+                                    
                                     self.uiImageview.image = UIImage(data: data)
+                                    
                               }
+                              
                         }
                   }
                   
