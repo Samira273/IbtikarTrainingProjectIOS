@@ -10,6 +10,7 @@ import Foundation
 
 
 class Person :NSObject{
+    
     var popularity : Double?
     var name : String?
     var path : String?
@@ -21,6 +22,4 @@ class Person :NSObject{
         path = ""
         id = 0
     }
-    
-    
 }

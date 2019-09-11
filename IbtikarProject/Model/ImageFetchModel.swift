@@ -8,21 +8,14 @@
 
 import Foundation
 
-
 class ImageFetchModel{
     
     func imageFromUrl(urlString: String, completion : @escaping (Data , String)-> Void ) {
         
         let url = URL(string: urlString)
-        
         if(url != nil){
-            
             downloadImageData(from: url!) { data, response, error in
                 guard let data = data, error == nil else { return }
-//                DispatchQueue.main.async() {
-//                    self.image = UIImage(data: data)
-//
-//                }
                 completion(data, urlString)
             }
         }
