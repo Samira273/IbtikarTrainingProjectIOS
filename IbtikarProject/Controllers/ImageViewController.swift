@@ -25,11 +25,16 @@ class ImageViewController: UIViewController {
     }
     
     @IBOutlet weak var myImageView: UIImageView!
+    let imageScreenFetchModel = ImageFetchModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        myImageView.imageFromUrl(urlString: baseUrl + path)
+        let renderImageScreen : (Data, String)-> Void = {(data , url) in
+            DispatchQueue.main.async{
+            self.myImageView.image = UIImage(data: data)
+            }
+        }
+        imageScreenFetchModel.imageFromUrl(urlString: baseUrl + path, completion: renderImageScreen)
         
     }
     
@@ -45,7 +50,7 @@ class ImageViewController: UIViewController {
             present(ac, animated: true)
         }
     }
-
+    
 }
 
 extension UIImageView {

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class PathsFetchModel{
+class DetailsFetchModel{
     var arrayOfPaths : [String] = []
     
     func getPaths(id : Int, completion: @escaping (Bool)-> Void){
@@ -34,5 +34,22 @@ class PathsFetchModel{
             }
         })
         pathsTask.resume()
+    }
+    
+    
+    func getImage(str : String , indx : IndexPath, completion : @escaping (Data) -> Void){
+        
+        let session = URLSession.shared
+        let url = URL(string : str)
+        let imageTask = session.dataTask(with: url!, completionHandler: { data, response, error in
+            if(data != nil){
+                completion(data!)
+            }else {
+                DispatchQueue.main.async{
+                    print("error loading data")
+                }
+            }
+        })
+        imageTask.resume()
     }
 }
