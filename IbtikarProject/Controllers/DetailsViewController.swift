@@ -2,8 +2,8 @@
 //  DetailsViewController.swift
 //  IbtikarProject
 //
-//  Created by Lost Star on 9/3/19.
-//  Copyright © 2019 esraa mohamed. All rights reserved.
+//  Created by Samira.Marassy on 9/3/19.
+//  Copyright © 2019 Samira Marassy. All rights reserved.
 //
 
 import UIKit
@@ -12,21 +12,40 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
     
     @IBOutlet weak var myCollectionView: UICollectionView!
     
-    var arrayOfPaths : [String] = []
+//    var arrayOfPaths : [String] = []
+    var pathsFetchModel = PathsFetchModel()
     var uiImageSub : UIImageView!
     var uiImageMain : UIImageView!
     var uiLableMain : UILabel!
     var per = Person()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+//        getPaths()
+        let pathsFetchFinished : (Bool) -> Void = {onSuccess in
+            if(onSuccess){
+                DispatchQueue.main.async {
+                    self.myCollectionView.reloadData()
+                }
+            }
+            
+        }
+        pathsFetchModel.getPaths(id: per.id ?? 0, completion: pathsFetchFinished)
+        myCollectionView.dataSource = self
+        myCollectionView.delegate = self
+//        self.myCollectionView.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return arrayOfPaths.count
+        return pathsFetchModel.arrayOfPaths.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "subCell", for: indexPath)
-        let urlString = "https://image.tmdb.org/t/p/w500/"+arrayOfPaths[indexPath.row]
+        let urlString = "https://image.tmdb.org/t/p/w500/"+pathsFetchModel.arrayOfPaths[indexPath.row]
         getImage(str: urlString , indx: indexPath, type: "subCell")
         return cell
     }
@@ -47,7 +66,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
-        imageVC.path = arrayOfPaths[indexPath.row]
+        imageVC.path = pathsFetchModel.arrayOfPaths[indexPath.row]
         self.present(imageVC, animated: true, completion: nil)
     }
     
@@ -64,14 +83,6 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        getPaths()
-        myCollectionView.dataSource = self
-        myCollectionView.delegate = self
-        self.myCollectionView.reloadData()
-    }
 
     func getImage(str : String , indx : IndexPath, type : String){
         
@@ -83,7 +94,7 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
                     if(type=="subCell"){
                         let currentCell = self.myCollectionView.cellForItem(at: indx)
                         self.uiImageSub = currentCell?.viewWithTag(3) as? UIImageView
-                        if ( data != nil){
+                        if ( data != nil && self.uiImageSub != nil){
                             self.uiImageSub.image = UIImage(data: data!)
                             }
                     }  else if(type=="mainCell"){
@@ -108,33 +119,4 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         })
         imageTask.resume()
     }
-    
-    func getPaths(){
-        
-        let str = "\(per.id ?? 0)"
-        let url = URL(string : "https://api.themoviedb.org/3/person/"+str + "/images?api_key=6b93b25da5cdb9298216703c40a31832")!
-        let session = URLSession.shared
-        let pathsTask = session.dataTask(with: url , completionHandler: { data , response, error in
-            do{
-                if (data != nil ){
-                    let jsonObject = try JSONSerialization.jsonObject(with: data!)
-                    let dictionary = jsonObject as? NSDictionary
-                    let profiles = dictionary?["profiles"] as? [NSDictionary]
-                    for profile in profiles!{
-                        let path = profile["file_path"] as? String
-                        if (path != nil){
-                            self.arrayOfPaths.append(path!)
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.myCollectionView.reloadData()
-                    }
-                }
-            }catch {
-                print("JSON error: \(error.localizedDescription)")
-            }
-        })
-        pathsTask.resume()
-    }
-    
 }

@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  IbtikarProject
 //
-//  Created by Lost Star on 9/2/19.
-//  Copyright © 2019 esraa mohamed. All rights reserved.
+//  Created by Samira.Marassy on 9/2/19.
+//  Copyright © 2019 Samira Marassy. All rights reserved.
 //
 
 import UIKit

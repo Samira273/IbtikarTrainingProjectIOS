@@ -3,7 +3,7 @@
 //  IbtikarProject
 //
 //  Created by Samira.Marassy on 9/5/19.
-//  Copyright © 2019 esraa mohamed. All rights reserved.
+//  Copyright © 2019 Samira Marassy. All rights reserved.
 //
 
 import UIKit

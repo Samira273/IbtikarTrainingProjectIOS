@@ -2,8 +2,8 @@
 //  ImageFetchModel.swift
 //  IbtikarProject
 //
-//  Created by user on 9/11/19.
-//  Copyright © 2019 esraa mohamed. All rights reserved.
+//  Created by Samira.Marassy on 9/11/19.
+//  Copyright © 2019 Samira Marassy. All rights reserved.
 //
 
 import Foundation
