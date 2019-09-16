@@ -39,14 +39,13 @@ class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollecti
     func renderMainCell(indPath: IndexPath , data: Data) -> Void{
         DispatchQueue.main.async {
             let mainCell = self.myCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indPath)
-            mainCell?.viewWithTag(1)
-            self.uiImageMain.image = UIImage(data: data)
+            self.uiImageMain = mainCell?.viewWithTag(1) as? UIImageView
+            self.uiImageMain?.image = UIImage(data: data)
         }
     }
     
     func renderSubCell(indPath: IndexPath, data: Data) -> Void{
         DispatchQueue.main.async {
-            
             let subCell = self.myCollectionView.cellForItem(at: indPath)
             self.uiImageSub = subCell?.viewWithTag(3)as? UIImageView
             if((self.uiImageSub) != nil){ self.uiImageSub.image = UIImage(data: data)
@@ -55,7 +54,6 @@ class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return detailsScreenPresenter?.getCellsCount() ?? 0
     }
     
@@ -63,40 +61,35 @@ class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollecti
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "subCell", for: indexPath)
         self.uiImageSub = cell.viewWithTag(3) as? UIImageView
+        detailsScreenPresenter?.renderSubCellForCellAtIndex(index : indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
         let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "mainCell", for: indexPath)
         uiLableMain = cell.viewWithTag(2) as? UILabel
-        uiLableMain.text = per.name
+        uiLableMain.text = detailsScreenPresenter?.getPersonName()
         uiImageMain = cell.viewWithTag(1) as? UIImageView
-        if let temp = per.path{
-            let urlString = "https://image.tmdb.org/t/p/w500/"+temp
-            fetchImage(strUrl: urlString, indPath: indexPath, typeOfCell: "mainCell")
-        } else{
-            ( cell.viewWithTag(1) as! UIImageView).image = UIImage(named: "avatar")
-        }
+        uiImageMain.image = UIImage(named: "avatar")
+        detailsScreenPresenter?.renderMainCell(index : indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
-        imageVC.path = detailsFetchModel.arrayOfPaths[indexPath.row]
+//        imageVC.path = detailsFetchModel.arrayOfPaths[indexPath.row]
         self.present(imageVC, animated: true, completion: nil)
     }
     
     @IBAction func goBack(_ sender: Any) {
-        
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
-        if(per.path != nil){
-            imageVC.path = per.path!
-            self.present(imageVC, animated: true, completion: nil)
-        }
+//        if(per.path != nil){
+//            imageVC.path = per.path!
+//            self.present(imageVC, animated: true, completion: nil)
+//        }
     }
 }

@@ -19,6 +19,14 @@ class DetailsScreenModel : DetailsScreenModelProtocol{
         return arrayOfPaths.count
     }
     
+    func getName() -> String{
+        return per.name ?? " "
+    }
+    
+    func getPersonPath() -> String{
+        return per.path ?? " "
+    }
+    
     func getPathAtIndex(indx: Int) -> String{
         return arrayOfPaths[indx]
     }

@@ -15,6 +15,8 @@ protocol DetailsScreenModelProtocol {
     func getImage(str : String , indx : IndexPath, completion : @escaping (Data) -> Void)
     func setPersonWith(selectedPerson : Person) -> Void
     func getPathAtIndex(indx: Int) -> String
+    func getName() -> String
+    func getPersonPath() -> String
 }
 
 protocol DetailsScreenViewProtocol {
