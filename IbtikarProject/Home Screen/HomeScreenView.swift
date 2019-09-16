@@ -137,11 +137,7 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
       func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             
             if (searchBar.text != nil){
-                  let searchURL = "https://api.themoviedb.org/3/search/person?api_key=6b93b25da5cdb9298216703c40a31832&language=en-US&query=\(searchText.replacingOccurrences(of: " ", with: "%20"))&include_adult=false&page="
-                  defaultURL = searchURL
-                  pageNo = 1
-                  bringAndRender(url: searchURL, page: 1)
-                  self.tableView.reloadData()
+               homeScreenPresenter?.search(keyWord: searchBar.text)
             }else{
                   self.tableView.reloadData()
             }

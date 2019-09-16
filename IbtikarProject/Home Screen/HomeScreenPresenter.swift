@@ -28,10 +28,16 @@ class HomeScreenPresenter {
     
     func bringAndRender(caller : String){
         var urlString = defaultURL
+        var page = pageNo
+        if(caller == "refresh" || caller == "search cancel"){
+            urlString = defaultURL
+            page = 1
+            searchWasDone = false
+        }
         if (caller == "search" || searchWasDone){
             urlString = searchUrl
         }
-        let page = pageNo
+        
         let renderData: (Bool) -> Void = { onSuccess in
             if(onSuccess){
                  self.noOfCells = self.homeScreenModel.getArraysCount()
@@ -47,11 +53,13 @@ class HomeScreenPresenter {
     func searchCancel()->Void{
         pageNo = 1
         homeScreenModel.clearData()
+        searchWasDone = false
         bringAndRender(caller: "search cancel")
     }
     
     func search(keyWord: String?)-> Void{
         searchWasDone = true
+        pageNo = 1
         searchUrl = "https://api.themoviedb.org/3/search/person?api_key=6b93b25da5cdb9298216703c40a31832&language=en-US&query=\(keyWord?.replacingOccurrences(of: " ", with: "%20") ?? "")&include_adult=false&page="
         bringAndRender(caller: "search")
     }
@@ -80,21 +88,21 @@ class HomeScreenPresenter {
         return homeScreenModel.getArraysCount()
     }
     
-    func getApiTotalPages() -> Int{
-        return apiTotalPages
+    func getApiTottalPages()->Int{
+        return homeScreenModel.getApiTottalPages() ?? 0
     }
     
     func loadMoreData(){
         pageNo+=1
         homeScreenView.setActivity(status: false)
         homeScreenView.activityAction(action: "start")
-        if pageNo <= apiTotalPages{
+        if pageNo <= homeScreenModel.getApiTottalPages() ?? 0{
             bringAndRender(caller: "loadMore")
         }
     }
     
     func checkToLoadMore(index: Int)-> Void{
-        if (index == self.getArrayCount() - 1 && self.getPageNo() <= self.getApiTotalPages()){
+        if (index == self.getArrayCount() - 1 && self.getPageNo() <= self.getApiTottalPages() ){
             self.loadMoreData()
         }
     }
