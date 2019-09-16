@@ -21,9 +21,14 @@ class HomeScreenPresenter {
     private var noOfCells = 0
     
     init(viewProtocol : HomeScreenViewProtocol , modelProtocol : HomeScreenModelProtocol) {
-        
         self.homeScreenView = viewProtocol
         self.homeScreenModel = modelProtocol
+    }
+    
+    func createNextModel(index : Int) -> DetailsScreenModel{
+        let detailsScreenModel = DetailsScreenModel()
+        detailsScreenModel.per = homeScreenModel.getPersonAtIndex(index: index)
+        return detailsScreenModel
     }
     
     func bringAndRender(caller : String){
@@ -49,6 +54,7 @@ class HomeScreenPresenter {
         
         homeScreenModel.loadDataOf(url: urlString, forPageNO: page, completion: renderData)
     }
+    
     
     func searchCancel()->Void{
         pageNo = 1

@@ -63,10 +63,10 @@
             </objects>
             <point key="canvasLocation" x="988" y="-20.239880059970016"/>
         </scene>
-        <!--Details View Controller-->
+        <!--Details Screen View-->
         <scene sceneID="QgQ-uI-wXD">
             <objects>
-                <viewController restorationIdentifier="detailsVC" storyboardIdentifier="detailsVC" id="AOc-fA-Tt7" customClass="DetailsViewController" customModule="IbtikarProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="detailsVC" storyboardIdentifier="detailsVC" id="AOc-fA-Tt7" customClass="DetailsScreenView" customModule="IbtikarProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kAK-V0-osh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

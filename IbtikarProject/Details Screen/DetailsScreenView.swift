@@ -8,27 +8,17 @@
 
 import UIKit
 
-class DetailsViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource{
+class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource , DetailsScreenViewProtocol{
     
-    @IBOutlet weak var myCollectionView: UICollectionView!
-    
-    var detailsFetchModel = DetailsFetchModel()
-    var uiImageSub : UIImageView!
-    var uiImageMain : UIImageView!
-    var uiLableMain : UILabel!
-    var per = Person()
+    @IBOutlet private weak var myCollectionView: UICollectionView!
+    private var detailsScreenPresenter : DetailsScreenPresenter?
+    private var uiImageSub : UIImageView!
+    private var uiImageMain : UIImageView!
+    private var uiLableMain : UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let pathsFetchFinished : (Bool) -> Void = {onSuccess in
-            if(onSuccess){
-                DispatchQueue.main.async {
-                    self.myCollectionView.reloadData()
-                }
-            }
-        }
-        detailsFetchModel.getPaths(id: per.id ?? 0, completion: pathsFetchFinished)
+        detailsScreenPresenter?.loadPaths()
         myCollectionView.dataSource = self
         myCollectionView.delegate = self
         myCollectionView.alwaysBounceVertical = true
@@ -36,42 +26,43 @@ class DetailsViewController: UIViewController , UICollectionViewDelegate, UIColl
         myCollectionView.reloadData()
     }
     
-    func fetchImage(strUrl:String, indPath:IndexPath, typeOfCell:String){
-        
-        let renderImage : (Data) -> Void = { (data) in
-            if(typeOfCell=="mainCell"){
-                DispatchQueue.main.async {
-                    let mainCell = self.myCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indPath)
-                    mainCell?.viewWithTag(1)
-                    self.uiImageMain.image = UIImage(data: data)
-                }
-                
-                
-            }else if (typeOfCell=="subCell"){
-                DispatchQueue.main.async {
-                    
-                    let subCell = self.myCollectionView.cellForItem(at: indPath)
-                    self.uiImageSub = subCell?.viewWithTag(3)as? UIImageView
-                    if((self.uiImageSub) != nil){ self.uiImageSub.image = UIImage(data: data)
-                    }
-                }
+    func setPresenter(presnter : DetailsScreenPresenter)->Void{
+        self.detailsScreenPresenter = presnter
+    }
+    
+    func reloadScreen() -> Void{
+        DispatchQueue.main.async {
+            self.myCollectionView.reloadData()
+        }
+    }
+    
+    func renderMainCell(indPath: IndexPath , data: Data) -> Void{
+        DispatchQueue.main.async {
+            let mainCell = self.myCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indPath)
+            mainCell?.viewWithTag(1)
+            self.uiImageMain.image = UIImage(data: data)
+        }
+    }
+    
+    func renderSubCell(indPath: IndexPath, data: Data) -> Void{
+        DispatchQueue.main.async {
+            
+            let subCell = self.myCollectionView.cellForItem(at: indPath)
+            self.uiImageSub = subCell?.viewWithTag(3)as? UIImageView
+            if((self.uiImageSub) != nil){ self.uiImageSub.image = UIImage(data: data)
             }
         }
-        detailsFetchModel.getImage(str: strUrl, indx: indPath, completion: renderImage)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return detailsFetchModel.arrayOfPaths.count
+        return detailsScreenPresenter?.getCellsCount() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "subCell", for: indexPath)
-        let urlString = "https://image.tmdb.org/t/p/w500/"+detailsFetchModel.arrayOfPaths[indexPath.row]
         self.uiImageSub = cell.viewWithTag(3) as? UIImageView
-        fetchImage(strUrl: urlString, indPath: indexPath, typeOfCell: "subCell")
         return cell
     }
     

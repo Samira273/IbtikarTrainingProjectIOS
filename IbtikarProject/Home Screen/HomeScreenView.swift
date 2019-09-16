@@ -54,7 +54,6 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
       }
       
       override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            
             return homeScreenPresenter?.getNumberOfCells() ?? 0
       }
       
@@ -71,7 +70,6 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
       }
       
       override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
             homeScreenPresenter?.checkToLoadMore(index: indexPath.row)
             activity.isHidden = true
             activity.stopAnimating()
@@ -79,7 +77,6 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
             self.uiLable = cell.viewWithTag(2) as? UILabel
             self.uiImageview = cell.viewWithTag(1) as? UIImageView
             self.uiImageview.image = UIImage(named: "avatar")
-            
             let renderImage : (Data , String) -> Void = { (data , url) in
                   DispatchQueue.main.async {
                         //                              if url == {
@@ -88,29 +85,29 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
                   }
             }
             homeScreenPresenter?.getCellImageAtIndex(index: indexPath.row, completion: renderImage)
-            //                  self.uiImageview.image = UIImage(named: "avatar")
             self.uiLable.text = homeScreenPresenter?.getCellLabelAtIndex(index: indexPath.row)
             return cell
       }
       
       override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             
-            let detailsVC : DetailsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailsVC") as! DetailsViewController
-//            detailsVC.per = dataFetchModel.arrayOfPersons[indexPath.row]
-            
-            detailsVC.per = Person()
-            self.present(detailsVC, animated: true, completion: nil)
+            var detailsModel = DetailsScreenModel()
+            if let detailsScreenModel = homeScreenPresenter?.createNextModel(index: indexPath.row){
+                  detailsModel = detailsScreenModel
+            }
+            let detailsView : DetailsScreenView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailsVC") as! DetailsScreenView
+            let detailsPresenter = DetailsScreenPresenter(viewProtocol: detailsView, modelProtocol: detailsModel)
+            detailsView.setPresenter(presnter: detailsPresenter)
+            self.present(detailsView, animated: true, completion: nil)
       }
       
       // MARK: - SearchBar functions
       
       func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-            //            searchActive = false;
             searchBar.setShowsCancelButton(true, animated: false)
       }
       
       func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-      
             searchBar.resignFirstResponder()
             searchBar.endEditing(true)
             searchBar.text = ""
@@ -118,9 +115,6 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
       }
       
       func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-            
-            print("search bar has been clicked")
-//            searchWasDone = true
             let searchKey = searchBar.text
             print(searchKey!)
             searchBar.setShowsCancelButton(true, animated: false)
@@ -128,16 +122,14 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
             if let cancelButton : UIButton = searchBar.value(forKey: "_cancelButton") as? UIButton{
                   cancelButton.isEnabled = true
             }
-            
             if(searchKey != nil){
                   homeScreenPresenter?.search(keyWord: searchKey)
             }
       }
       
       func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            
             if (searchBar.text != nil){
-               homeScreenPresenter?.search(keyWord: searchBar.text)
+                  homeScreenPresenter?.search(keyWord: searchBar.text)
             }else{
                   self.tableView.reloadData()
             }

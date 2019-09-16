@@ -7,12 +7,25 @@
 //
 
 import Foundation
-class DetailsFetchModel{
+class DetailsScreenModel : DetailsScreenModelProtocol{
     var arrayOfPaths : [String] = []
+    var per = Person()
     
-    func getPaths(id : Int, completion: @escaping (Bool)-> Void){
+    func setPersonWith(selectedPerson : Person) -> Void{
+        per = selectedPerson
+    }
+    
+    func getArraysCount()-> Int{
+        return arrayOfPaths.count
+    }
+    
+    func getPathAtIndex(indx: Int) -> String{
+        return arrayOfPaths[indx]
+    }
+    
+    func getPaths(completion: @escaping (Bool)-> Void){
         
-        let str = "\(id)"
+        let str = "\(per.id ?? 0)"
         let url = URL(string : "https://api.themoviedb.org/3/person/"+str + "/images?api_key=6b93b25da5cdb9298216703c40a31832")!
         let session = URLSession.shared
         let pathsTask = session.dataTask(with: url , completionHandler: { data , response, error in
