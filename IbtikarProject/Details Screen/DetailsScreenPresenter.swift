@@ -33,7 +33,9 @@ class DetailsScreenPresenter {
     func getPersonName()->String{
         return detailsScreenModel?.getName() ?? " "
     }
-    
+    func getPersonPath() -> String{
+        return detailsScreenModel?.getPersonPath() ?? " "
+    }
     func fetchImage(strUrl:String, indPath:IndexPath, typeOfCell:String){
         
         let renderImage : (Data) -> Void = { (innerData) in

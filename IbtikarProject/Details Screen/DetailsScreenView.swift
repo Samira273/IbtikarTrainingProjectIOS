@@ -76,7 +76,7 @@ class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
+        let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ShowImageScreenView
 //        imageVC.path = detailsFetchModel.arrayOfPaths[indexPath.row]
         self.present(imageVC, animated: true, completion: nil)
     }
@@ -86,7 +86,9 @@ class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollecti
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
-        let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ImageViewController
+        let imageModel = ShowImageScreenModel()
+        imageModel.setPath(part : detailsScreenPresenter.getPersonPath())
+        let imageView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ShowImageScreenView
 //        if(per.path != nil){
 //            imageVC.path = per.path!
 //            self.present(imageVC, animated: true, completion: nil)

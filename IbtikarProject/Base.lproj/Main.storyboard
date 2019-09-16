@@ -20,7 +20,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="Awy-Jb-UB9">
-                            <rect key="frame" x="0.0" y="560" width="600" height="20"/>
+                            <rect key="frame" x="0.0" y="554" width="600" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                         <prototypes>
@@ -140,10 +140,10 @@
             </objects>
             <point key="canvasLocation" x="1748" y="-20.239880059970016"/>
         </scene>
-        <!--Image View Controller-->
+        <!--Show Image Screen View-->
         <scene sceneID="CqS-3w-IcR">
             <objects>
-                <viewController storyboardIdentifier="imageVC" id="pvL-5f-dO4" customClass="ImageViewController" customModule="IbtikarProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="imageVC" id="pvL-5f-dO4" customClass="ShowImageScreenView" customModule="IbtikarProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gBf-8W-FZp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

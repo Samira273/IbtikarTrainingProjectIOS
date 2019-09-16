@@ -8,10 +8,7 @@
 
 import UIKit
 
-class ImageViewController: UIViewController {
-    
-    var baseUrl : String = "https://image.tmdb.org/t/p/w500/"
-    var path : String = ""
+class ShowImageScreenView: UIViewController, ShowImageScreenViewProtocol {
     
     @IBAction func goBackToCollection(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -24,17 +21,18 @@ class ImageViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var myImageView: UIImageView!
-    let imageScreenFetchModel = ImageFetchModel()
+    @IBOutlet private weak var myImageView: UIImageView!
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let renderImageScreen : (Data, String)-> Void = {(data , url) in
-            DispatchQueue.main.async{
-            self.myImageView.image = UIImage(data: data)
-            }
-        }
-        imageScreenFetchModel.imageFromUrl(urlString: baseUrl + path, completion: renderImageScreen)
+//        let renderImageScreen : (Data, String)-> Void = {(data , url) in
+//            DispatchQueue.main.async{
+//                self.myImageView.image = UIImage(data: data)
+//            }
+//        }
+//        imageScreenFetchModel.imageFromUrl(urlString: baseUrl + path, completion: renderImageScreen)
+        
         
     }
     
@@ -53,22 +51,23 @@ class ImageViewController: UIViewController {
     
 }
 
-extension UIImageView {
-    public func imageFromUrl(urlString: String ) {
-        
-        let url = URL(string: urlString)
-        if(url != nil){
-            downloadImageData(from: url!) { data, response, error in
-                guard let data = data, error == nil else { return }
-                DispatchQueue.main.async() {
-                    self.image = UIImage(data: data)
-                }
-            }
-        }
-    }
-    
-    func downloadImageData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-}
+//extension UIImageView {
+//    public func imageFromUrl(urlString: String ) {
+//
+//        let url = URL(string: urlString)
+//        if(url != nil){
+//            downloadImageData(from: url!) { data, response, error in
+//                guard let data = data, error == nil else { return }
+//                DispatchQueue.main.async() {
+//                    self.image = UIImage(data: data)
+//                }
+//            }
+//        }
+//    }
+//
+//    func downloadImageData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+//        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+//    }
+//
+//}
+//

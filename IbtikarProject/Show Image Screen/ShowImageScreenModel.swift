@@ -8,7 +8,13 @@
 
 import Foundation
 
-class ImageFetchModel{
+class ShowImageScreenModel : ShowImageScreenModelProtocol{
+    private var baseUrl : String = "https://image.tmdb.org/t/p/w500/"
+    private var path : String = ""
+    
+    func setPath(part : String){
+        self.path = part
+    }
     
     func imageFromUrl(urlString: String, completion : @escaping (Data , String)-> Void ) {
         
@@ -26,3 +32,4 @@ class ImageFetchModel{
     }
     
 }
+
