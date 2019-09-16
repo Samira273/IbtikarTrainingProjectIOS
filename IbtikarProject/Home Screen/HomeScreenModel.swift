@@ -7,10 +7,22 @@
 //
 
 import Foundation
-class DataFetchModel : NSObject {
+class HomeScreenModel : NSObject , HomeScreenModelProtocol{
     
-    var arrayOfPersons : [Person] = []
+    private var arrayOfPersons : [Person] = []
     var apiTotalPages : Int?
+    
+    func getPersonAtIndex(index: Int) -> Person {
+        return arrayOfPersons[index]
+    }
+    
+    func getApiTottalPages() -> Int?{
+        return apiTotalPages
+    }
+    
+    func getArraysCount() -> Int{
+        return arrayOfPersons.count
+    }
     
     func loadDataOf(url urlString : String, forPageNO pageNumber : Int, completion: @escaping (Bool)-> Void){
         
@@ -45,5 +57,24 @@ class DataFetchModel : NSObject {
             }
         })
         task.resume()
+    }
+    
+    func imageFromUrl(urlString: String, completion : @escaping (Data , String)-> Void ) {
+        
+        let url = URL(string: urlString)
+        if(url != nil){
+            downloadImageData(from: url!) { data, response, error in
+                guard let data = data, error == nil else { return }
+                completion(data, urlString)
+            }
+        }
+    }
+    
+    func downloadImageData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    func clearData()->Void{
+        arrayOfPersons = []
     }
 }

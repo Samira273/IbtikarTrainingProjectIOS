@@ -8,135 +8,97 @@
 
 import UIKit
 
-class TableViewController: UITableViewController, UISearchBarDelegate {
+class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenViewProtocol {
       
       @IBOutlet weak var activity: UIActivityIndicatorView!
       @IBOutlet weak var searchBar: UISearchBar!
-      
-      var dataFetchModel = DataFetchModel()
-      var imageFetchModel = ImageFetchModel()
       var uiLable : UILabel!
       var uiImageview : UIImageView!
-      var pageNo = 1
       let myRefreshControler = UIRefreshControl()
-      let apiTotalPages = 500
-      var searchWasDone : Bool = false
-      var defaultURL = ""
-      let peopleURL = "https://api.themoviedb.org/3/person/popular?api_key=6b93b25da5cdb9298216703c40a31832&language=en-US&page="
-      var noOfCells = 0
-      
-      func bringAndRender(url : String, page : Int){
-            let renderData: (Bool) -> Void = { onSuccess in
-                  if(onSuccess){
-                        print("data fetch completed")
-                        DispatchQueue.main.async {
-                              self.noOfCells = self.dataFetchModel.arrayOfPersons.count
-                              self.tableView.reloadData()
-                        }
-                  }
-            }
-            dataFetchModel.loadDataOf(url: url, forPageNO: page, completion: renderData)
-            
-            
-      }
+      var homeScreenPresenter: HomeScreenPresenter?
       
       override func viewDidLoad() {
             super.viewDidLoad()
+            homeScreenPresenter = HomeScreenPresenter(viewProtocol: self, modelProtocol: HomeScreenModel())
             searchBar.delegate = self
-            
             searchBar.showsCancelButton = true
-            
             activity.isHidden = true
-            
-            
             self.myRefreshControler.attributedTitle = NSAttributedString(string: "Refreshing")
-            
             myRefreshControler.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
             tableView.refreshControl = myRefreshControler
-            
-            //   arrayOfPersons.removeAll()
-            
-            defaultURL = peopleURL
-            //            getData(pageNumber: 1, urlString: defaultURL)
-            print("before calling fetch")
-            //            dataFetchModel.loadDataOf(url: defaultURL, forPageNO: 1, completion: renderData)
-            bringAndRender(url: defaultURL, page: 1)
-            
-            
-            
-            
+            homeScreenPresenter?.settingDefaultUrl()
+            homeScreenPresenter?.bringAndRender(caller : "viewDidLoad")
+      }
+      
+      func reloadHomeScreen(){
+            self.tableView.reloadData()
+      }
+      
+      func setActivity(status : Bool) -> Void{
+            activity.isHidden = status
       }
       
       @objc func refresh(sender:AnyObject) {
             // Code to refresh table view
-            
-            print("refresh is choosen")
             searchBar.resignFirstResponder()
             searchBar.endEditing(true)
-            self.pageNo = 1
-            bringAndRender(url: defaultURL, page: pageNo)
+            homeScreenPresenter?.settingPageNo(page: 1)
+            homeScreenPresenter?.bringAndRender(caller : "refresh")
             self.refreshControl?.endRefreshing()
-            
       }
       
       // MARK: - Table view data source
       
       override func numberOfSections(in tableView: UITableView) -> Int {
-            // #warning Incomplete implementation, return the number of sections
             return 1
       }
       
       override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             
-            return noOfCells
+            return homeScreenPresenter?.getNumberOfCells() ?? 0
       }
       
       override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return CGFloat(100)
       }
       
+      func activityAction(action: String)->Void{
+            if(action == "start"){
+                  activity.startAnimating()
+            }
+            else if (action == "stop"){ activity.stopAnimating()
+            }
+      }
+      
       override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
-            if indexPath.row == dataFetchModel.arrayOfPersons.count - 1 && pageNo <= apiTotalPages {
-                  //show loader
-                  pageNo += 1
-                  activity.isHidden = false
-                  activity.startAnimating()
-                  if pageNo <= apiTotalPages{
-                        bringAndRender(url: defaultURL, page: pageNo)
-                  }
-            }
-            
-            
+            homeScreenPresenter?.checkToLoadMore(index: indexPath.row)
             activity.isHidden = true
             activity.stopAnimating()
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             self.uiLable = cell.viewWithTag(2) as? UILabel
             self.uiImageview = cell.viewWithTag(1) as? UIImageView
+            self.uiImageview.image = UIImage(named: "avatar")
             
-            if dataFetchModel.arrayOfPersons[indexPath.row].path != nil  {
-                  
-                  let urlString = "https://image.tmdb.org/t/p/w500/"+dataFetchModel.arrayOfPersons[indexPath.row].path!
-                  
-                  let renderImage : (Data , String) -> Void = { (data , url) in
-                        DispatchQueue.main.async {
-                              if url == urlString{
-                                    self.uiImageview.image = UIImage(data: data)
-                              }
-                        }
+            let renderImage : (Data , String) -> Void = { (data , url) in
+                  DispatchQueue.main.async {
+                        //                              if url == {
+                        self.uiImageview.image = UIImage(data: data)
+                        //                              }
                   }
-                  imageFetchModel.imageFromUrl(urlString: urlString, completion: renderImage)
-            }else{
-                  self.uiImageview.image = UIImage(named: "avatar")
             }
-            self.uiLable.text = dataFetchModel.arrayOfPersons[indexPath.row].name
+            homeScreenPresenter?.getCellImageAtIndex(index: indexPath.row, completion: renderImage)
+            //                  self.uiImageview.image = UIImage(named: "avatar")
+            self.uiLable.text = homeScreenPresenter?.getCellLabelAtIndex(index: indexPath.row)
             return cell
       }
       
       override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             
             let detailsVC : DetailsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailsVC") as! DetailsViewController
-            detailsVC.per = dataFetchModel.arrayOfPersons[indexPath.row]
+//            detailsVC.per = dataFetchModel.arrayOfPersons[indexPath.row]
+            
+            detailsVC.per = Person()
             self.present(detailsVC, animated: true, completion: nil)
       }
       
@@ -148,20 +110,17 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
       }
       
       func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-            
-            print("cancel was selected")
+      
             searchBar.resignFirstResponder()
             searchBar.endEditing(true)
             searchBar.text = ""
-            self.pageNo = 1
-            dataFetchModel.arrayOfPersons = []
-            bringAndRender(url: peopleURL, page: 1)
+            homeScreenPresenter?.searchCancel()
       }
       
       func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             
             print("search bar has been clicked")
-            searchWasDone = true
+//            searchWasDone = true
             let searchKey = searchBar.text
             print(searchKey!)
             searchBar.setShowsCancelButton(true, animated: false)
@@ -171,9 +130,7 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
             }
             
             if(searchKey != nil){
-                  let searchUrl = "https://api.themoviedb.org/3/search/person?api_key=6b93b25da5cdb9298216703c40a31832&language=en-US&query=\(searchKey?.replacingOccurrences(of: " ", with: "%20") ?? "")&include_adult=false&page="
-                  bringAndRender(url: searchUrl, page: 1)
-                  tableView.reloadData()
+                  homeScreenPresenter?.search(keyWord: searchKey)
             }
       }
       
@@ -189,5 +146,5 @@ class TableViewController: UITableViewController, UISearchBarDelegate {
                   self.tableView.reloadData()
             }
       }
-
+      
 }

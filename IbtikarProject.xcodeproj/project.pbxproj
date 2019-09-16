@@ -15,12 +15,14 @@
 		84D11CB7231D182C00A1FE88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D11CB5231D182C00A1FE88 /* LaunchScreen.storyboard */; };
 		84D11CC2231D182C00A1FE88 /* IbtikarProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CC1231D182C00A1FE88 /* IbtikarProjectTests.swift */; };
 		84D11CCD231D182C00A1FE88 /* IbtikarProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CCC231D182C00A1FE88 /* IbtikarProjectUITests.swift */; };
-		84D11CDB231D1E3B00A1FE88 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CDA231D1E3B00A1FE88 /* TableViewController.swift */; };
+		84D11CDB231D1E3B00A1FE88 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CDA231D1E3B00A1FE88 /* HomeScreenView.swift */; };
 		84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CE4231D3EC400A1FE88 /* Person.swift */; };
 		CE0297822325211D0070FB29 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0297812325211D0070FB29 /* ImageViewController.swift */; };
+		CE158C11232F81A6008E2047 /* HomeScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE158C10232F81A6008E2047 /* HomeScreenPresenter.swift */; };
+		CE158C13232F81B7008E2047 /* HomeScreenContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE158C12232F81B7008E2047 /* HomeScreenContract.swift */; };
 		CE2097DC2328EA3100748635 /* ImageFetchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2097DB2328EA3100748635 /* ImageFetchModel.swift */; };
 		CE209824232E7E0200748635 /* DetailsFetchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE209823232E7E0200748635 /* DetailsFetchModel.swift */; };
-		CE7141812327FEF7004D3A46 /* DataFetchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7141802327FEF7004D3A46 /* DataFetchModel.swift */; };
+		CE7141812327FEF7004D3A46 /* HomeScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7141802327FEF7004D3A46 /* HomeScreenModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,12 +57,14 @@
 		84D11CC8231D182C00A1FE88 /* IbtikarProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IbtikarProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D11CCC231D182C00A1FE88 /* IbtikarProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbtikarProjectUITests.swift; sourceTree = "<group>"; };
 		84D11CCE231D182C00A1FE88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84D11CDA231D1E3B00A1FE88 /* TableViewController.swift */ = {isa = PBXFileReference; indentWidth = 6; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; tabWidth = 17; };
+		84D11CDA231D1E3B00A1FE88 /* HomeScreenView.swift */ = {isa = PBXFileReference; indentWidth = 6; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; tabWidth = 17; };
 		84D11CE4231D3EC400A1FE88 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		CE0297812325211D0070FB29 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		CE158C10232F81A6008E2047 /* HomeScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenPresenter.swift; sourceTree = "<group>"; };
+		CE158C12232F81B7008E2047 /* HomeScreenContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenContract.swift; sourceTree = "<group>"; };
 		CE2097DB2328EA3100748635 /* ImageFetchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchModel.swift; sourceTree = "<group>"; };
 		CE209823232E7E0200748635 /* DetailsFetchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsFetchModel.swift; sourceTree = "<group>"; };
-		CE7141802327FEF7004D3A46 /* DataFetchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetchModel.swift; sourceTree = "<group>"; };
+		CE7141802327FEF7004D3A46 /* HomeScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,8 +150,10 @@
 		CE158C0E232F7D41008E2047 /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
-				84D11CDA231D1E3B00A1FE88 /* TableViewController.swift */,
-				CE7141802327FEF7004D3A46 /* DataFetchModel.swift */,
+				84D11CDA231D1E3B00A1FE88 /* HomeScreenView.swift */,
+				CE7141802327FEF7004D3A46 /* HomeScreenModel.swift */,
+				CE158C10232F81A6008E2047 /* HomeScreenPresenter.swift */,
+				CE158C12232F81B7008E2047 /* HomeScreenContract.swift */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -310,13 +316,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84D11CDB231D1E3B00A1FE88 /* TableViewController.swift in Sources */,
+				84D11CDB231D1E3B00A1FE88 /* HomeScreenView.swift in Sources */,
 				CE0297822325211D0070FB29 /* ImageViewController.swift in Sources */,
 				84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */,
+				CE158C13232F81B7008E2047 /* HomeScreenContract.swift in Sources */,
 				CE209824232E7E0200748635 /* DetailsFetchModel.swift in Sources */,
 				CE2097DC2328EA3100748635 /* ImageFetchModel.swift in Sources */,
 				84D11CAD231D181F00A1FE88 /* AppDelegate.swift in Sources */,
-				CE7141812327FEF7004D3A46 /* DataFetchModel.swift in Sources */,
+				CE7141812327FEF7004D3A46 /* HomeScreenModel.swift in Sources */,
+				CE158C11232F81A6008E2047 /* HomeScreenPresenter.swift in Sources */,
 				842CE273231E9F250049E48A /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
