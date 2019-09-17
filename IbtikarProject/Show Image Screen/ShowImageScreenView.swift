@@ -22,19 +22,32 @@ class ShowImageScreenView: UIViewController, ShowImageScreenViewProtocol {
     }
     
     @IBOutlet private weak var myImageView: UIImageView!
-   
+    private var showImageScreenPresenter : ShowImageScreenPresenter?
+    
+    func setPresenter (presenter : ShowImageScreenPresenter) -> Void{
+        self.showImageScreenPresenter = presenter
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let renderImageScreen : (Data, String)-> Void = {(data , url) in
-//            DispatchQueue.main.async{
-//                self.myImageView.image = UIImage(data: data)
-//            }
-//        }
-//        imageScreenFetchModel.imageFromUrl(urlString: baseUrl + path, completion: renderImageScreen)
+        
+        showImageScreenPresenter?.downloadImageData()
+        //        let renderImageScreen : (Data, String)-> Void = {(data , url) in
+        //            DispatchQueue.main.async{
+        //                self.myImageView.image = UIImage(data: data)
+        //            }
+        //        }
+        //        imageScreenFetchModel.imageFromUrl(urlString: baseUrl + path, completion: renderImageScreen)
         
         
     }
+    
+    func setImage(data : Data)->Void{
+        DispatchQueue.main.async{
+            self.myImageView.image = UIImage(data: data)
+        }
+    }
+    
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
         if let error = error {

@@ -8,9 +8,9 @@
 
 import Foundation
 protocol ShowImageScreenViewProtocol{
-    
+    func setImage(data : Data)->Void
 }
 
 protocol ShowImageScreenModelProtocol{
-    
+     func imageFromUrl(completion : @escaping (Data)-> Void)
 }

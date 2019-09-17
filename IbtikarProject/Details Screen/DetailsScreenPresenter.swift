@@ -30,6 +30,10 @@ class DetailsScreenPresenter {
         detailsScreenModel?.getPaths(completion: pathsFetchFinished)
     }
     
+    func getPathAtIndex(index : IndexPath) -> String{
+        return detailsScreenModel?.getPathAtIndex(indx: index.row) ?? " "
+    }
+    
     func getPersonName()->String{
         return detailsScreenModel?.getName() ?? " "
     }

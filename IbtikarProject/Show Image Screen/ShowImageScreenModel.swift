@@ -9,20 +9,22 @@
 import Foundation
 
 class ShowImageScreenModel : ShowImageScreenModelProtocol{
+    
+    
     private var baseUrl : String = "https://image.tmdb.org/t/p/w500/"
     private var path : String = ""
     
-    func setPath(part : String){
-        self.path = part
+    func setPath(path : String){
+        self.path = path
     }
     
-    func imageFromUrl(urlString: String, completion : @escaping (Data , String)-> Void ) {
+    func imageFromUrl(completion : @escaping (Data)-> Void ) {
         
-        let url = URL(string: urlString)
+        let url = URL(string: baseUrl+path)
         if(url != nil){
             downloadImageData(from: url!) { data, response, error in
                 guard let data = data, error == nil else { return }
-                completion(data, urlString)
+                completion(data)
             }
         }
     }

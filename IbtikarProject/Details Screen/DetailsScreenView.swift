@@ -76,9 +76,12 @@ class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let imageVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ShowImageScreenView
-//        imageVC.path = detailsFetchModel.arrayOfPaths[indexPath.row]
-        self.present(imageVC, animated: true, completion: nil)
+        let showImageView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ShowImageScreenView
+        let imageModel = ShowImageScreenModel()
+        imageModel.setPath(path: detailsScreenPresenter?.getPathAtIndex(index: indexPath) ?? " ")
+        let showImagePresenter = ShowImageScreenPresenter(viewProtocol: showImageView, modelProtocol: imageModel)
+        showImageView.setPresenter(presenter: showImagePresenter)
+        self.present(showImageView, animated: true, completion: nil)
     }
     
     @IBAction func goBack(_ sender: Any) {
@@ -87,11 +90,10 @@ class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollecti
     
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         let imageModel = ShowImageScreenModel()
-        imageModel.setPath(part : detailsScreenPresenter.getPersonPath())
+        imageModel.setPath(path : detailsScreenPresenter?.getPersonPath() ?? " ")
         let imageView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageVC") as! ShowImageScreenView
-//        if(per.path != nil){
-//            imageVC.path = per.path!
-//            self.present(imageVC, animated: true, completion: nil)
-//        }
+        let showImagePresenter = ShowImageScreenPresenter(viewProtocol: imageView, modelProtocol: imageModel)
+        imageView.setPresenter(presenter: showImagePresenter)
+        self.present(imageView, animated: true, completion: nil)
     }
 }
