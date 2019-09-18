@@ -44,6 +44,14 @@ class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollecti
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cellCounter = detailsScreenPresenter?.getCellsCount(){
+            if (indexPath.row == cellCounter-1) {
+               self.reloadScreen()
+            }
+        }
+    }
+    
     func renderSubCell(indPath: IndexPath, data: Data, path: String) -> Void{
         DispatchQueue.main.async {
             if let subCell = self.myCollectionView.cellForItem(at: indPath) as? SubCell{
