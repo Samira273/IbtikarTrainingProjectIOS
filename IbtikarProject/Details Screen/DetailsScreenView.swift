@@ -10,19 +10,15 @@ import UIKit
 
 class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource , DetailsScreenViewProtocol{
     
+    
     @IBOutlet private weak var myCollectionView: UICollectionView!
     private var detailsScreenPresenter : DetailsScreenPresenter?
-    private var uiImageSub : UIImageView!
-    private var uiImageMain : UIImageView!
-    private var uiLableMain : UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         detailsScreenPresenter?.loadPaths()
         myCollectionView.dataSource = self
         myCollectionView.delegate = self
-        myCollectionView.alwaysBounceVertical = true
-        myCollectionView.bounces = true
         myCollectionView.reloadData()
     }
     
@@ -36,19 +32,26 @@ class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollecti
         }
     }
     
-    func renderMainCell(indPath: IndexPath , data: Data) -> Void{
+    func renderMainCell(indPath: IndexPath , data: Data , path: String) -> Void{
         DispatchQueue.main.async {
-            let mainCell = self.myCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indPath)
-            self.uiImageMain = mainCell?.viewWithTag(1) as? UIImageView
-            self.uiImageMain?.image = UIImage(data: data)
+            if let mainCell = self.myCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indPath) as? MainCell{
+                if let success = self.detailsScreenPresenter?.checkMainImageAndPath(index : indPath , urlPath : path) {
+                    if success{
+                        mainCell.mainCellImage.image = UIImage(data: data)
+                    }
+                }
+            }
         }
     }
     
-    func renderSubCell(indPath: IndexPath, data: Data) -> Void{
+    func renderSubCell(indPath: IndexPath, data: Data, path: String) -> Void{
         DispatchQueue.main.async {
-            let subCell = self.myCollectionView.cellForItem(at: indPath)
-            self.uiImageSub = subCell?.viewWithTag(3)as? UIImageView
-            if((self.uiImageSub) != nil){ self.uiImageSub.image = UIImage(data: data)
+            if let subCell = self.myCollectionView.cellForItem(at: indPath) as? SubCell{
+                if let success = self.detailsScreenPresenter?.checkSubCellAndPath(index : indPath , urlPath : path){
+                    if success{
+                        subCell.subCellImage.image = UIImage(data: data)
+                    }
+                }
             }
         }
     }
@@ -59,20 +62,18 @@ class DetailsScreenView: UIViewController , UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "subCell", for: indexPath)
-        self.uiImageSub = cell.viewWithTag(3) as? UIImageView
+        let subCell : SubCell = collectionView.dequeueReusableCell(withReuseIdentifier: "subCell", for: indexPath) as! SubCell
+        //        self.uiImageSub = cell.viewWithTag(3) as? UIImageView
         detailsScreenPresenter?.renderSubCellForCellAtIndex(index : indexPath)
-        return cell
+        return subCell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "mainCell", for: indexPath)
-        uiLableMain = cell.viewWithTag(2) as? UILabel
-        uiLableMain.text = detailsScreenPresenter?.getPersonName()
-        uiImageMain = cell.viewWithTag(1) as? UIImageView
-        uiImageMain.image = UIImage(named: "avatar")
+        let mainCell : MainCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "mainCell", for: indexPath) as! MainCell
+        mainCell.mainCellLabel.text = detailsScreenPresenter?.getPersonName()
+        mainCell.mainCellImage.image = UIImage(named: "avatar")
         detailsScreenPresenter?.renderMainCell(index : indexPath)
-        return cell
+        return mainCell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

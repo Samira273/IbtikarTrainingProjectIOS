@@ -40,13 +40,13 @@ class DetailsScreenPresenter {
     func getPersonPath() -> String{
         return detailsScreenModel?.getPersonPath() ?? " "
     }
-    func fetchImage(strUrl:String, indPath:IndexPath, typeOfCell:String){
+    func fetchImage(strUrl:String, indPath:IndexPath, typeOfCell:String , path: String){
         
-        let renderImage : (Data) -> Void = { (innerData) in
+        let renderImage : (Data , String) -> Void = { (innerData , url) in
             if(typeOfCell=="mainCell"){
-                self.detailsScreenView.renderMainCell(indPath : indPath, data: innerData)
+                self.detailsScreenView.renderMainCell(indPath : indPath, data: innerData, path: url)
             }else if (typeOfCell=="subCell"){
-                self.detailsScreenView.renderSubCell(indPath : indPath, data: innerData)
+                self.detailsScreenView.renderSubCell(indPath : indPath, data: innerData, path: url)
             }
             
         }
@@ -54,20 +54,36 @@ class DetailsScreenPresenter {
         
     }
     
+    func checkMainImageAndPath(index : IndexPath , urlPath : String) -> Bool{
+        if let url = detailsScreenModel?.getPersonPath(){
+            return urlPath == "https://image.tmdb.org/t/p/w500/"+url
+        }
+        return false
+    }
+    
+    func checkSubCellAndPath(index : IndexPath , urlPath : String) -> Bool{
+        if let url = detailsScreenModel?.getPathAtIndex(indx: index.row){
+            return urlPath == "https://image.tmdb.org/t/p/w500/"+url
+        }
+        return false
+    }
+    
     func renderSubCellForCellAtIndex(index : IndexPath){
         var urlString = " "
         if let detailsModel = detailsScreenModel?.getPathAtIndex(indx: index.row){
             urlString = "https://image.tmdb.org/t/p/w500/"+detailsModel
+             self.fetchImage(strUrl: urlString, indPath: index, typeOfCell: "subCell", path: detailsModel)
         }
-        self.fetchImage(strUrl: urlString, indPath: index, typeOfCell: "subCell")
+       
     }
     
     func renderMainCell(index: IndexPath){
         var urlString = " "
         if let detailsModelMain = detailsScreenModel?.getPersonPath(){
             urlString = "https://image.tmdb.org/t/p/w500/"+detailsModelMain
+            self.fetchImage(strUrl: urlString, indPath: index, typeOfCell: "mainCell", path: detailsModelMain)
         }
-        self.fetchImage(strUrl: urlString, indPath: index, typeOfCell: "mainCell")
+        
     }
     
 }

@@ -8,6 +8,8 @@
 
 import Foundation
 class DetailsScreenModel : DetailsScreenModelProtocol{
+    
+    
     var arrayOfPaths : [String] = []
     var per = Person()
     
@@ -58,13 +60,13 @@ class DetailsScreenModel : DetailsScreenModelProtocol{
     }
     
     
-    func getImage(str : String , indx : IndexPath, completion : @escaping (Data) -> Void){
+    func getImage(str : String , indx : IndexPath, completion : @escaping (Data, String) -> Void){
         
         let session = URLSession.shared
         let url = URL(string : str)
         let imageTask = session.dataTask(with: url!, completionHandler: { data, response, error in
             if(data != nil){
-                completion(data!)
+                completion(data! , str)
             }else {
                 DispatchQueue.main.async{
                     print("error loading data")

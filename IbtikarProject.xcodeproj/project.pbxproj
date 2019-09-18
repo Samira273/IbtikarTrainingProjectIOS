@@ -17,6 +17,9 @@
 		84D11CCD231D182C00A1FE88 /* IbtikarProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CCC231D182C00A1FE88 /* IbtikarProjectUITests.swift */; };
 		84D11CDB231D1E3B00A1FE88 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CDA231D1E3B00A1FE88 /* HomeScreenView.swift */; };
 		84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CE4231D3EC400A1FE88 /* Person.swift */; };
+		CE06C14F23322A8600A72B8C /* SubCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06C14E23322A8600A72B8C /* SubCell.swift */; };
+		CE06C15123322A9F00A72B8C /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06C15023322A9F00A72B8C /* MainCell.swift */; };
+		CE0D466C2331318900772E84 /* HomeScreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D466B2331318900772E84 /* HomeScreenCell.swift */; };
 		CE158C11232F81A6008E2047 /* HomeScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE158C10232F81A6008E2047 /* HomeScreenPresenter.swift */; };
 		CE158C13232F81B7008E2047 /* HomeScreenContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE158C12232F81B7008E2047 /* HomeScreenContract.swift */; };
 		CE209824232E7E0200748635 /* DetailsScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE209823232E7E0200748635 /* DetailsScreenModel.swift */; };
@@ -63,6 +66,9 @@
 		84D11CCE231D182C00A1FE88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84D11CDA231D1E3B00A1FE88 /* HomeScreenView.swift */ = {isa = PBXFileReference; indentWidth = 6; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; tabWidth = 17; };
 		84D11CE4231D3EC400A1FE88 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		CE06C14E23322A8600A72B8C /* SubCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCell.swift; sourceTree = "<group>"; };
+		CE06C15023322A9F00A72B8C /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
+		CE0D466B2331318900772E84 /* HomeScreenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenCell.swift; sourceTree = "<group>"; };
 		CE158C10232F81A6008E2047 /* HomeScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenPresenter.swift; sourceTree = "<group>"; };
 		CE158C12232F81B7008E2047 /* HomeScreenContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenContract.swift; sourceTree = "<group>"; };
 		CE209823232E7E0200748635 /* DetailsScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsScreenModel.swift; sourceTree = "<group>"; };
@@ -162,6 +168,7 @@
 				CE7141802327FEF7004D3A46 /* HomeScreenModel.swift */,
 				CE158C10232F81A6008E2047 /* HomeScreenPresenter.swift */,
 				CE158C12232F81B7008E2047 /* HomeScreenContract.swift */,
+				CE0D466B2331318900772E84 /* HomeScreenCell.swift */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -173,6 +180,8 @@
 				CE209823232E7E0200748635 /* DetailsScreenModel.swift */,
 				CE9CD881232FC07400BA7BCA /* DetailsScreenPresenter.swift */,
 				CE9CD883232FC08300BA7BCA /* DetailsScreenContract.swift */,
+				CE06C14E23322A8600A72B8C /* SubCell.swift */,
+				CE06C15023322A9F00A72B8C /* MainCell.swift */,
 			);
 			path = "Details Screen";
 			sourceTree = "<group>";
@@ -330,8 +339,11 @@
 			files = (
 				84D11CDB231D1E3B00A1FE88 /* HomeScreenView.swift in Sources */,
 				CE9CD884232FC08300BA7BCA /* DetailsScreenContract.swift in Sources */,
+				CE06C15123322A9F00A72B8C /* MainCell.swift in Sources */,
+				CE06C14F23322A8600A72B8C /* SubCell.swift in Sources */,
 				84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */,
 				CE9CD88A232FFD1C00BA7BCA /* ShowImageScreenView.swift in Sources */,
+				CE0D466C2331318900772E84 /* HomeScreenCell.swift in Sources */,
 				CE9CD890232FFDF000BA7BCA /* ShowImageScreenPresenter.swift in Sources */,
 				CE9CD88E232FFD9F00BA7BCA /* ShowImageScreenModel.swift in Sources */,
 				CE158C13232F81B7008E2047 /* HomeScreenContract.swift in Sources */,

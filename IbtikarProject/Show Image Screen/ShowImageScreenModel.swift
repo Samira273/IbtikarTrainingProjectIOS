@@ -10,7 +10,6 @@ import Foundation
 
 class ShowImageScreenModel : ShowImageScreenModelProtocol{
     
-    
     private var baseUrl : String = "https://image.tmdb.org/t/p/w500/"
     private var path : String = ""
     

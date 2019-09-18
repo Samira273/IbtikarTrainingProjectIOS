@@ -12,10 +12,8 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
       
       @IBOutlet weak var activity: UIActivityIndicatorView!
       @IBOutlet weak var searchBar: UISearchBar!
-      var uiLable : UILabel!
-      var uiImageview : UIImageView!
-      let myRefreshControler = UIRefreshControl()
-      var homeScreenPresenter: HomeScreenPresenter?
+      private let myRefreshControler = UIRefreshControl()
+      private var homeScreenPresenter: HomeScreenPresenter?
       
       override func viewDidLoad() {
             super.viewDidLoad()
@@ -73,19 +71,16 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
             homeScreenPresenter?.checkToLoadMore(index: indexPath.row)
             activity.isHidden = true
             activity.stopAnimating()
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            self.uiLable = cell.viewWithTag(2) as? UILabel
-            self.uiImageview = cell.viewWithTag(1) as? UIImageView
-            self.uiImageview.image = UIImage(named: "avatar")
+            let cell : HomeScreenCell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! HomeScreenCell
+            cell.imageView?.image = UIImage(named: "avatar")
             let renderImage : (Data , String) -> Void = { (data , url) in
                   DispatchQueue.main.async {
-                        //                              if url == {
-                        self.uiImageview.image = UIImage(data: data)
-                        //                              }
+                    cell.imageView?.image = UIImage(data: data)
+                        
                   }
             }
             homeScreenPresenter?.getCellImageAtIndex(index: indexPath.row, completion: renderImage)
-            self.uiLable.text = homeScreenPresenter?.getCellLabelAtIndex(index: indexPath.row)
+            cell.cellLabel.text = homeScreenPresenter?.getCellLabelAtIndex(index: indexPath.row)
             return cell
       }
       
