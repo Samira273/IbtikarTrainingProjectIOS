@@ -31,6 +31,12 @@ class HomeScreenPresenter {
         return detailsScreenModel
     }
     
+    func refreshSelected(){
+        self.pageNo = 1
+        homeScreenModel.clearData()
+        self.bringAndRender(caller: "refresh")
+    }
+    
     func bringAndRender(caller : String){
         var urlString = defaultURL
         var page = pageNo

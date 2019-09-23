@@ -40,8 +40,9 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
             // Code to refresh table view
             searchBar.resignFirstResponder()
             searchBar.endEditing(true)
-            homeScreenPresenter?.settingPageNo(page: 1)
-            homeScreenPresenter?.bringAndRender(caller : "refresh")
+//            homeScreenPresenter?.settingPageNo(page: 1)
+//            homeScreenPresenter?.bringAndRender(caller : "refresh")
+            homeScreenPresenter?.refreshSelected()
             self.refreshControl?.endRefreshing()
       }
       
