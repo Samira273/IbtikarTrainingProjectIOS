@@ -51,10 +51,10 @@ class HomeScreenPresenter {
         
         let renderData: (Bool) -> Void = { onSuccess in
             if(onSuccess){
-                 self.noOfCells = self.homeScreenModel.getArraysCount()
-                DispatchQueue.main.async {
-                    self.homeScreenView.reloadHomeScreen()
-                }
+                self.noOfCells = self.homeScreenModel.getArraysCount()
+                
+                self.homeScreenView.reloadHomeScreen()
+                
             }
         }
         
@@ -126,7 +126,7 @@ class HomeScreenPresenter {
     
     func getCellImageAtIndex(index : Int , completion : @escaping (Data, String) -> Void){
         var url = ""
-       
+        
         let setDatataImage : (Data , String) -> Void = { (data , url) in
             completion(data, url)
         }
@@ -136,6 +136,6 @@ class HomeScreenPresenter {
             homeScreenModel.imageFromUrl(urlString: url, completion: setDatataImage)
             
         }
-
+        
     }
 }

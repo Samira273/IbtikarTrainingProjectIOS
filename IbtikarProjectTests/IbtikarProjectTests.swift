@@ -30,7 +30,15 @@ class IbtikarProjectTests: XCTestCase  {
         super.tearDown()
     }
     
-    func testHomeScreenPresenter(){
+    func testHomeScreenPresenterLoadingMore(){
+        let promise = expectation(description: "data completed")
+        let dataDone : (Bool) -> Void = { onSuccess in
+            promise.fulfill()
+        }
+        homeModelTest.loadDataOf(url: "", forPageNO: 0, completion: dataDone)
+        wait(for: [promise], timeout: 5)
+        sut.loadMoreData()
+        XCTAssertEqual(homeModelTest.getArraysCount() , 10, "loading more failed")
         
     }
     

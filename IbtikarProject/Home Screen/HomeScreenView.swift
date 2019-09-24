@@ -29,7 +29,9 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
       }
       
       func reloadHomeScreen(){
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                  self.tableView.reloadData()
+            }
       }
       
       func setActivity(status : Bool) -> Void{
@@ -40,8 +42,8 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
             // Code to refresh table view
             searchBar.resignFirstResponder()
             searchBar.endEditing(true)
-//            homeScreenPresenter?.settingPageNo(page: 1)
-//            homeScreenPresenter?.bringAndRender(caller : "refresh")
+            //            homeScreenPresenter?.settingPageNo(page: 1)
+            //            homeScreenPresenter?.bringAndRender(caller : "refresh")
             homeScreenPresenter?.refreshSelected()
             self.refreshControl?.endRefreshing()
       }
@@ -76,7 +78,7 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
             cell.imageView?.image = UIImage(named: "avatar")
             let renderImage : (Data , String) -> Void = { (data , url) in
                   DispatchQueue.main.async {
-                    cell.imageView?.image = UIImage(data: data)
+                        cell.imageView?.image = UIImage(data: data)
                         
                   }
             }
