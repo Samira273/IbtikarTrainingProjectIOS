@@ -33,7 +33,6 @@ class HomeScreenModel : NSObject , HomeScreenModelProtocol{
                 if (data != nil ){
                     let jsonObject = try JSONSerialization.jsonObject(with: data!)
                     let dictionary = jsonObject as? NSDictionary
-                    DispatchQueue.main.async {
                         if pageNumber==1{
                             self.arrayOfPersons.removeAll()
                         }
@@ -49,7 +48,6 @@ class HomeScreenModel : NSObject , HomeScreenModelProtocol{
                             }
                             print("\(self.arrayOfPersons.count)")
                             completion(true)
-                        }
                     }
                 }
             } catch {
