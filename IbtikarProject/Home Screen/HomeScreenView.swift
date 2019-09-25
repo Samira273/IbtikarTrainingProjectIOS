@@ -79,7 +79,6 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
             let renderImage : (Data , String) -> Void = { (data , url) in
                   DispatchQueue.main.async {
                         cell.imageView?.image = UIImage(data: data)
-                        
                   }
             }
             homeScreenPresenter?.getCellImageAtIndex(index: indexPath.row, completion: renderImage)
@@ -89,14 +88,14 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
       
       override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             
-            var detailsModel = DetailsScreenModel()
-            if let detailsScreenModel = homeScreenPresenter?.createNextModel(index: indexPath.row){
-                  detailsModel = detailsScreenModel
+            if let detailsModel = homeScreenPresenter?.itemSelectedAtIndex( ind : indexPath.row){
+                  let detailsView : DetailsScreenView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailsVC") as! DetailsScreenView
+                  let detailsPresenter = DetailsScreenPresenter(viewProtocol: detailsView, modelProtocol: detailsModel)
+                  detailsView.setPresenter(presnter: detailsPresenter)
+                  self.present(detailsView, animated: true, completion: nil)
+                  
             }
-            let detailsView : DetailsScreenView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailsVC") as! DetailsScreenView
-            let detailsPresenter = DetailsScreenPresenter(viewProtocol: detailsView, modelProtocol: detailsModel)
-            detailsView.setPresenter(presnter: detailsPresenter)
-            self.present(detailsView, animated: true, completion: nil)
+            
       }
       
       // MARK: - SearchBar functions

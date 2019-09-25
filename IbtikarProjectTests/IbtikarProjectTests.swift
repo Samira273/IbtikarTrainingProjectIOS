@@ -56,8 +56,16 @@ class IbtikarProjectTests: XCTestCase  {
         
     }
     
-    func testHomeScreenPresenterClearingData(){
+    func testHomeScreenPresenterItemSelected(){
+        let promise = expectation(description: "data completed")
+        let dataDone : (Bool) -> Void = { onSuccess in
+            promise.fulfill()
+        }
+        homeModelTest.loadDataOf(url: "", forPageNO: 0, completion: dataDone)
+        wait(for: [promise], timeout: 5)
         
+        let detailsModelTest = sut.itemSelectedAtIndex(ind: 3)
+        XCTAssertEqual(detailsModelTest.per.name, "Saori Hara", "wrong actor")
     }
     
     func testPerformanceExample() {

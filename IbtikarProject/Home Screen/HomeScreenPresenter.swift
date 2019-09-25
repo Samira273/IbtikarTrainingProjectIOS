@@ -25,10 +25,10 @@ class HomeScreenPresenter {
         self.homeScreenModel = modelProtocol
     }
     
-    func createNextModel(index : Int) -> DetailsScreenModel{
-        let detailsScreenModel = DetailsScreenModel()
-        detailsScreenModel.per = homeScreenModel.getPersonAtIndex(index: index)
-        return detailsScreenModel
+    func itemSelectedAtIndex( ind: Int) -> DetailsScreenModel{
+        let detailsModel = DetailsScreenModel()
+        detailsModel.per  = homeScreenModel.getPersonAtIndex(index: ind)
+        return detailsModel
     }
     
     func refreshSelected(){
