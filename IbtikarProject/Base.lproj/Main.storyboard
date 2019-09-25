@@ -38,22 +38,67 @@
                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPe-e0-pKx">
                                             <rect key="frame" x="170" y="13" width="224" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="cellLabel">
+                                                <accessibilityTraits key="traits" staticText="YES"/>
+                                            </accessibility>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier " value="cellLabel"/>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dkA-hj-stZ">
                                             <rect key="frame" x="20" y="-15" width="106" height="72"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="cellImage"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier " value="cellImage"/>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                     </subviews>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier " value="contentOFCell"/>
+                                    </userDefinedRuntimeAttributes>
                                 </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration" identifier="tableCell">
+                                    <accessibilityTraits key="traits" none="YES"/>
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <connections>
                                     <outlet property="cellImageView" destination="dkA-hj-stZ" id="kgU-1w-Aix"/>
                                     <outlet property="cellLabel" destination="SPe-e0-pKx" id="r4e-7l-LIV"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" value="myTable">
+                                <mutableString key="keyPath">if tableCells.count &gt; 0 {
+    let count: Int = (tableCells.count - 1)
+ 
+    let promise = expectation(description: "Wait for table cells")
+ 
+    for i in stride(from: 0, to: count , by: 1) {
+        // Grab the first cell and verify that it exists and tap it
+        let tableCell = tableCells.element(boundBy: i)
+        XCTAssertTrue(tableCell.exists, "The \(i) cell is in place on the table")
+        // Does this actually take us to the next screen
+        tableCell.tap()
+ 
+        if i == (count - 1) {
+            promise.fulfill()
+        }
+        // Back
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+    }
+    waitForExpectations(timeout: 20, handler: nil)
+    XCTAssertTrue(true, "Finished validating the table cells")
+ 
+} else {
+    XCTAssert(false, "Was not able to find any table cells")
+accessibilityIdentifier</mutableString>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="lsM-Zf-q1v" id="gZv-Zr-Xaj"/>
                             <outlet property="delegate" destination="lsM-Zf-q1v" id="vSh-dO-Iyq"/>

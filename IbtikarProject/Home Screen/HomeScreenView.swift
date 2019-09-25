@@ -26,6 +26,7 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
             tableView.refreshControl = myRefreshControler
             homeScreenPresenter?.settingDefaultUrl()
             homeScreenPresenter?.bringAndRender(caller : "viewDidLoad")
+            self.tableView.accessibilityIdentifier = "myTable"
       }
       
       func reloadHomeScreen(){
