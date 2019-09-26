@@ -73,7 +73,7 @@
                         </prototypes>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" value="myTable">
-                                <mutableString key="keyPath">if tableCells.count &gt; 0 {
+                                <string key="keyPath">if tableCells.count &gt; 0 {
     let count: Int = (tableCells.count - 1)
  
     let promise = expectation(description: "Wait for table cells")
@@ -96,7 +96,7 @@
  
 } else {
     XCTAssert(false, "Was not able to find any table cells")
-accessibilityIdentifier</mutableString>
+accessibilityIdentifier</string>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                         <connections>
@@ -130,6 +130,9 @@ accessibilityIdentifier</mutableString>
                                 <items>
                                     <navigationItem id="KYi-lU-Am5">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="3Sa-uR-MAk">
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="backToHome"/>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="goBack:" destination="AOc-fA-Tt7" id="wMB-S1-dkB"/>
                                             </connections>
@@ -187,6 +190,9 @@ accessibilityIdentifier</mutableString>
                                         <outlet property="mainCellLabel" destination="EJS-PT-uQh" id="V9Q-ZL-KaM"/>
                                     </connections>
                                 </collectionReusableView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="detailsView"/>
+                                </userDefinedRuntimeAttributes>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -250,6 +256,9 @@ accessibilityIdentifier</mutableString>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EPh-zG-ux6">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="myNavBar"/>
+                        </userDefinedRuntimeAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
