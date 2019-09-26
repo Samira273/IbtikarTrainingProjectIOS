@@ -68,19 +68,17 @@ class IbtikarProjectUITests: XCTestCase {
             //                }
         }
         waitForExpectations(timeout: 20, handler: nil)
-        //            XCTAssertTrue(true, "Finished validating the table cells")
-        
-        //            XCTAssertTrue(app.collectionViews["detailsView"].exists, "details screen isnt displayed")
-        
-        
-        //            app.buttons["backToHome"].tap()
-        //             XCTAssertTrue(app.tables["myTable"].exists, "home screen isnt displayed")
-        //    }
     }
     
     func testCellIsHavingCorrectObject(){
-        
+        let  myTable = app.tables["myTable"]
+        let tableCells = myTable.cells
+        let tableCell = tableCells.element(boundBy: 1)
+        tableCell.tap()
+        XCTAssertEqual(app.staticTexts["mainCellLabel"].label, "Keanu Reeves", "wrong cell navigation")
     }
+    
+    
     func testGoingToDetailsScreenAndBack(){
         let  myTable = app.tables["myTable"]
         let tableCells = myTable.cells
