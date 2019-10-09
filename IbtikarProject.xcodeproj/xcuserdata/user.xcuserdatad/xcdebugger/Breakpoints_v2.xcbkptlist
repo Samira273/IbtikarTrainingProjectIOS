@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IbtikarProject/Details Screen/DetailsScreenModel.swift"
-            timestampString = "590498717.619624"
+            timestampString = "592322985.540007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "getImage(str:indx:completion:)"
             landmarkType = "7">
          </BreakpointContent>

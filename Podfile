@@ -6,6 +6,7 @@ target 'IbtikarProject' do
  
 	pod 'SDWebImage', '~> 5.0'
 	pod 'Alamofire'
+	pod 'Moya'
 
 
   # Pods for IbtikarProject

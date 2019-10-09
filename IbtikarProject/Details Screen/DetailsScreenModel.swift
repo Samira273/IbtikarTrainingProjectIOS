@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Moya
+
 class DetailsScreenModel : DetailsScreenModelProtocol{
     
     
@@ -35,28 +37,52 @@ class DetailsScreenModel : DetailsScreenModelProtocol{
     
     func getPaths(completion: @escaping (Bool)-> Void){
         
-//        let str = "\(per.id ?? 0)"
-//        let url = URL(string : "https://api.themoviedb.org/3/person/"+str + "/images?api_key=6b93b25da5cdb9298216703c40a31832")!
-//        let session = URLSession.shared
-//        let pathsTask = session.dataTask(with: url , completionHandler: { data , response, error in
-//            do{
-//                if (data != nil ){
-//                    let jsonObject = try JSONSerialization.jsonObject(with: data!)
-//                    let dictionary = jsonObject as? NSDictionary
-//                    let profiles = dictionary?["profiles"] as? [NSDictionary]
-//                    for profile in profiles!{
-//                        let path = profile["file_path"] as? String
-//                        if (path != nil){
-//                            self.arrayOfPaths.append(path!)
-//                        }
-//                    }
-//                 completion(true)
-//                }
-//            }catch {
-//                print("JSON error: \(error.localizedDescription)")
-//            }
-//        })
-//        pathsTask.resume()
+        let str = "\(per.id ?? 0)"
+        let provider = MoyaProvider<DetailsTarget>()
+        provider.request(.images(id: str)){ result in
+            switch result {
+            case .success(let response):
+                do {
+                    let jsonObject = try JSONSerialization.jsonObject(with: response.data)
+                    let dictionary = jsonObject as? NSDictionary
+                    let profiles = dictionary?["profiles"] as? [NSDictionary]
+                    for profile in profiles!{
+                        let path = profile["file_path"] as? String
+                        if (path != nil){
+                            self.arrayOfPaths.append(path!)
+                        }
+                    }
+                    completion(true)
+                } catch {
+                    print("JSON error: \(error.localizedDescription)")
+                }
+            case .failure:
+                // 5
+                print("network error")
+            }
+        }
+        //
+        //        let url = URL(string : "https://api.themoviedb.org/3/person/"+str + "/images?api_key=6b93b25da5cdb9298216703c40a31832")!
+        //        let session = URLSession.shared
+        //        let pathsTask = session.dataTask(with: url , completionHandler: { data , response, error in
+        //            do{
+        //                if (data != nil ){
+        //                    let jsonObject = try JSONSerialization.jsonObject(with: data!)
+        //                    let dictionary = jsonObject as? NSDictionary
+        //                    let profiles = dictionary?["profiles"] as? [NSDictionary]
+        //                    for profile in profiles!{
+        //                        let path = profile["file_path"] as? String
+        //                        if (path != nil){
+        //                            self.arrayOfPaths.append(path!)
+        //                        }
+        //                    }
+        //                 completion(true)
+        //                }
+        //            }catch {
+        //                print("JSON error: \(error.localizedDescription)")
+        //            }
+        //        })
+        //        pathsTask.resume()
     }
     
     
