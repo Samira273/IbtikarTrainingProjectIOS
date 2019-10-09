@@ -35,6 +35,7 @@
 		CE9CD88E232FFD9F00BA7BCA /* ShowImageScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CD88D232FFD9F00BA7BCA /* ShowImageScreenModel.swift */; };
 		CE9CD890232FFDF000BA7BCA /* ShowImageScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CD88F232FFDF000BA7BCA /* ShowImageScreenPresenter.swift */; };
 		CE9CD892232FFDFE00BA7BCA /* ShowImageScreenContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CD891232FFDFE00BA7BCA /* ShowImageScreenContract.swift */; };
+		CEF2A52D234E014800E2A089 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF2A52C234E014800E2A089 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		CE9CD88D232FFD9F00BA7BCA /* ShowImageScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageScreenModel.swift; sourceTree = "<group>"; };
 		CE9CD88F232FFDF000BA7BCA /* ShowImageScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageScreenPresenter.swift; sourceTree = "<group>"; };
 		CE9CD891232FFDFE00BA7BCA /* ShowImageScreenContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageScreenContract.swift; sourceTree = "<group>"; };
+		CEF2A52C234E014800E2A089 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		CF7EDE793A34D73D12DD145D /* libPods-IbtikarProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IbtikarProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E30804B3F0BF172115F3CB0C /* Pods-IbtikarProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IbtikarProjectUITests.release.xcconfig"; path = "Target Support Files/Pods-IbtikarProjectUITests/Pods-IbtikarProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EBD6E3896928BAAFDF018953 /* Pods-IbtikarProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IbtikarProjectTests.release.xcconfig"; path = "Target Support Files/Pods-IbtikarProjectTests/Pods-IbtikarProjectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		84D11CA0231D181F00A1FE88 = {
 			isa = PBXGroup;
 			children = (
+				CEF2A52C234E014800E2A089 /* Default-568h@2x.png */,
 				84D11CAB231D181F00A1FE88 /* IbtikarProject */,
 				84D11CC0231D182C00A1FE88 /* IbtikarProjectTests */,
 				84D11CCB231D182C00A1FE88 /* IbtikarProjectUITests */,
@@ -361,6 +364,7 @@
 				840B5BAA231E848100EF440C /* avatar.png in Resources */,
 				84D11CB7231D182C00A1FE88 /* LaunchScreen.storyboard in Resources */,
 				84D11CB4231D182C00A1FE88 /* Assets.xcassets in Resources */,
+				CEF2A52D234E014800E2A089 /* Default-568h@2x.png in Resources */,
 				84D11CB2231D181F00A1FE88 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -654,6 +658,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IbtikarProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -662,7 +667,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -675,6 +680,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = IbtikarProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -683,7 +689,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

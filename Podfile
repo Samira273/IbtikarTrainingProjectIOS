@@ -5,6 +5,7 @@ platform :ios, '9.0'
 target 'IbtikarProject' do
  
 	pod 'SDWebImage', '~> 5.0'
+	pod 'Alamofire'
 
 
   # Pods for IbtikarProject
