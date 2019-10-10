@@ -45,6 +45,7 @@ class HomeScreenModel : NSObject , HomeScreenModelProtocol{
                             switch response.result{
                             case .success(_):
                                 if let json = response.result.value{
+                                    
                                     let apiResponse = ApiResponse(JSON: json as! [String : Any])
                                     self.apiTotalPages = apiResponse?.apiTotalPages
                                     if let actorsResult = apiResponse?.results{
