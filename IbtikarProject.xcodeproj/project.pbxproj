@@ -37,6 +37,7 @@
 		CE9CD892232FFDFE00BA7BCA /* ShowImageScreenContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CD891232FFDFE00BA7BCA /* ShowImageScreenContract.swift */; };
 		CEF2A52D234E014800E2A089 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF2A52C234E014800E2A089 /* Default-568h@2x.png */; };
 		CEF2A52F234E0B1A00E2A089 /* DetailsTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A52E234E0B1A00E2A089 /* DetailsTarget.swift */; };
+		CEF2A531234E250000E2A089 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A530234E250000E2A089 /* Actor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		CE9CD891232FFDFE00BA7BCA /* ShowImageScreenContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageScreenContract.swift; sourceTree = "<group>"; };
 		CEF2A52C234E014800E2A089 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		CEF2A52E234E0B1A00E2A089 /* DetailsTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTarget.swift; sourceTree = "<group>"; };
+		CEF2A530234E250000E2A089 /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		CF7EDE793A34D73D12DD145D /* libPods-IbtikarProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IbtikarProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E30804B3F0BF172115F3CB0C /* Pods-IbtikarProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IbtikarProjectUITests.release.xcconfig"; path = "Target Support Files/Pods-IbtikarProjectUITests/Pods-IbtikarProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EBD6E3896928BAAFDF018953 /* Pods-IbtikarProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IbtikarProjectTests.release.xcconfig"; path = "Target Support Files/Pods-IbtikarProjectTests/Pods-IbtikarProjectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				84D11CE4231D3EC400A1FE88 /* Person.swift */,
+				CEF2A530234E250000E2A089 /* Actor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				CE06C14F23322A8600A72B8C /* SubCell.swift in Sources */,
 				84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */,
 				CE9CD88A232FFD1C00BA7BCA /* ShowImageScreenView.swift in Sources */,
+				CEF2A531234E250000E2A089 /* Actor.swift in Sources */,
 				CE0D466C2331318900772E84 /* HomeScreenCell.swift in Sources */,
 				CE9CD890232FFDF000BA7BCA /* ShowImageScreenPresenter.swift in Sources */,
 				CE9CD88E232FFD9F00BA7BCA /* ShowImageScreenModel.swift in Sources */,

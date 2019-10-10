@@ -22,7 +22,7 @@ protocol HomeScreenModelProtocol {
     
     func clearData()->Void
     
-    func getPersonAtIndex (index : Int) -> Person
+    func getPersonAtIndex (index : Int) -> Actor
     
     func getApiTottalPages() -> Int?
     

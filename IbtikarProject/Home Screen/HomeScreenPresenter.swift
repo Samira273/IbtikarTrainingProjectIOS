@@ -27,7 +27,7 @@ class HomeScreenPresenter {
     
     func itemSelectedAtIndex( ind: Int) -> DetailsScreenModel{
         let detailsModel = DetailsScreenModel()
-        detailsModel.per  = homeScreenModel.getPersonAtIndex(index: ind)
+//        detailsModel.per  = homeScreenModel.getPersonAtIndex(index: ind)
         return detailsModel
     }
     
