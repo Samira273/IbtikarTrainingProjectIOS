@@ -17,7 +17,6 @@
 		84D11CC2231D182C00A1FE88 /* IbtikarProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CC1231D182C00A1FE88 /* IbtikarProjectTests.swift */; };
 		84D11CCD231D182C00A1FE88 /* IbtikarProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CCC231D182C00A1FE88 /* IbtikarProjectUITests.swift */; };
 		84D11CDB231D1E3B00A1FE88 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CDA231D1E3B00A1FE88 /* HomeScreenView.swift */; };
-		84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D11CE4231D3EC400A1FE88 /* Person.swift */; };
 		9CC391028BE13AA73E206A40 /* libPods-IbtikarProjectUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CCC6FC40A6E384B0E71A08 /* libPods-IbtikarProjectUITests.a */; };
 		BF6A5EF379A2B062C496D826 /* libPods-IbtikarProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED796F7ECFCDD7B524E23D39 /* libPods-IbtikarProjectTests.a */; };
 		CE06C14F23322A8600A72B8C /* SubCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06C14E23322A8600A72B8C /* SubCell.swift */; };
@@ -76,7 +75,6 @@
 		84D11CCC231D182C00A1FE88 /* IbtikarProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbtikarProjectUITests.swift; sourceTree = "<group>"; };
 		84D11CCE231D182C00A1FE88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84D11CDA231D1E3B00A1FE88 /* HomeScreenView.swift */ = {isa = PBXFileReference; indentWidth = 6; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; tabWidth = 17; };
-		84D11CE4231D3EC400A1FE88 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		953812C6019074F8A882B4AF /* Pods-IbtikarProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IbtikarProject.debug.xcconfig"; path = "Target Support Files/Pods-IbtikarProject/Pods-IbtikarProject.debug.xcconfig"; sourceTree = "<group>"; };
 		A0CCC6FC40A6E384B0E71A08 /* libPods-IbtikarProjectUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IbtikarProjectUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE06C14E23322A8600A72B8C /* SubCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCell.swift; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 		CE71417F2327FE8C004D3A46 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				84D11CE4231D3EC400A1FE88 /* Person.swift */,
 				CEF2A530234E250000E2A089 /* Actor.swift */,
 			);
 			path = Model;
@@ -470,7 +467,6 @@
 				CE9CD884232FC08300BA7BCA /* DetailsScreenContract.swift in Sources */,
 				CE06C15123322A9F00A72B8C /* MainCell.swift in Sources */,
 				CE06C14F23322A8600A72B8C /* SubCell.swift in Sources */,
-				84D11CE5231D3EC400A1FE88 /* Person.swift in Sources */,
 				CE9CD88A232FFD1C00BA7BCA /* ShowImageScreenView.swift in Sources */,
 				CEF2A531234E250000E2A089 /* Actor.swift in Sources */,
 				CE0D466C2331318900772E84 /* HomeScreenCell.swift in Sources */,

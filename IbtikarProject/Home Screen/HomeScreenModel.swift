@@ -12,13 +12,13 @@ import Dispatch
 
 class HomeScreenModel : NSObject , HomeScreenModelProtocol{
     
-//    private var arrayOfPersons : [Person] = []
+
     private var arrayOfActors : [Actor] = []
     var apiTotalPages : Int?
     private let networkDefaults = NetworkDefaults()
     
     func getPersonAtIndex(index: Int) -> Actor {
-//        return arrayOfPersons[index]
+
         return arrayOfActors[index]
     }
     
@@ -27,12 +27,12 @@ class HomeScreenModel : NSObject , HomeScreenModelProtocol{
     }
     
     func getArraysCount() -> Int{
-//        return arrayOfPersons.count
+
         return arrayOfActors.count
     }
     
     func loadDataOf(url urlString : String, forPageNO pageNumber : Int, completion: @escaping (Bool)-> Void){
-        //        let queue = DispatchQueue(label: "com.test.com", qos: .background, attributes: .concurrent)
+   
         
         if pageNumber == 1{
             arrayOfActors.removeAll()
@@ -60,72 +60,9 @@ class HomeScreenModel : NSObject , HomeScreenModelProtocol{
                             }
                           })
         
-//
-//        (completionHandler: {response in
-//                switch response.result {
-//                case .success(_):
-//                    if let data = response.result.value{
-        
-                        
-//                        do {
-//                                let jsonObject = try JSONSerialization.jsonObject(with: data)
-//                                let dictionary = jsonObject as? NSDictionary
-//                                if pageNumber==1{
-//                                    self.arrayOfPersons.removeAll()
-//                                }
-//                                if let results = dictionary?["results"] as? [NSDictionary]{
-//                                    self.apiTotalPages = dictionary?["total_pages"] as? Int
-//                                    for result in results{
-//                                        let person = Person()
-//                                        person.id = result["id"] as? Int
-//                                        person.name = result["name"] as? String
-//                                        person.popularity = result["popularity"] as? Double
-//                                        person.path = result["profile_path"] as? String
-//                                        self.arrayOfPersons.append(person)
-//                                    }
-//                                    print("\(self.arrayOfPersons.count)")
-//                                    completion(true)
-//                                }
-//
-//                        } catch {
-//                            print("JSON error: \(error.localizedDescription)")
-//                        }
-//                    }
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            })
+
     }
-    //        let session = URLSession.shared
-    //        let url = URL(string: urlString+"\(pageNumber)")!
-    //        let task = session.dataTask(with: url, completionHandler: { data, response, error in
-    //            do {
-    //                if (data != nil ){
-    //                    let jsonObject = try JSONSerialization.jsonObject(with: data!)
-    //                    let dictionary = jsonObject as? NSDictionary
-    //                        if pageNumber==1{
-    //                            self.arrayOfPersons.removeAll()
-    //                        }
-    //                        if let results = dictionary?["results"] as? [NSDictionary]{
-    //                            self.apiTotalPages = dictionary?["total_pages"] as? Int
-    //                            for result in results{
-    //                                let person = Person()
-    //                                person.id = result["id"] as? Int
-    //                                person.name = result["name"] as? String
-    //                                person.popularity = result["popularity"] as? Double
-    //                                person.path = result["profile_path"] as? String
-    //                                self.arrayOfPersons.append(person)
-    //                            }
-    //                            print("\(self.arrayOfPersons.count)")
-    //                            completion(true)
-    //                    }
-    //                }
-    //            } catch {
-    //                print("JSON error: \(error.localizedDescription)")
-    //            }
-    //        })
-    //        task.resume()
-    //}
+  
     
     func imageFromUrl(urlString: String, completion : @escaping (Data , String)-> Void ) {
         
@@ -143,7 +80,7 @@ class HomeScreenModel : NSObject , HomeScreenModelProtocol{
     }
     
     func clearData()->Void{
-//        arrayOfPersons = []
+
         arrayOfActors = []
     }
 }
