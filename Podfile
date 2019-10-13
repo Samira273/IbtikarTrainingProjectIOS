@@ -8,6 +8,10 @@ target 'IbtikarProject' do
 	pod 'Alamofire'
 	pod 'Moya'
 	pod 'ObjectMapper'
+	pod 'SwiftyJSON'
+	pod 'OAuthSwift'
+	pod 'p2.OAuth2'
+	pod 'FlickrKit'
 
 
   # Pods for IbtikarProject
