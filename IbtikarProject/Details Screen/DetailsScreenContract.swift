@@ -13,7 +13,7 @@ protocol DetailsScreenModelProtocol {
     func getPaths(completion: @escaping (Bool)-> Void)
     func getArraysCount()-> Int
     func getImage(str : String , indx : IndexPath, completion : @escaping (Data , String) -> Void)
-    func setPersonWith(selectedPerson : Person) -> Void
+    func setPersonWith(selectedPerson : Actor) -> Void
     func getPathAtIndex(indx: Int) -> String
     func getName() -> String
     func getPersonPath() -> String

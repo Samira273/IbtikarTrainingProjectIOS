@@ -129,7 +129,7 @@ class IbtikarProjectTests: XCTestCase  {
             
         }
         
-        func getPersonAtIndex(index: Int) -> Person {
+        func getPersonAtIndex(index: Int) -> Actor {
             return arrayOfPersons[index]
         }
         

@@ -13,10 +13,10 @@ class DetailsScreenModel : DetailsScreenModelProtocol{
     
     
     var arrayOfPaths : [String] = []
-    var per = Person()
+    private var actor : Actor?
     
-    func setPersonWith(selectedPerson : Person) -> Void{
-        per = selectedPerson
+    func setPersonWith(selectedPerson : Actor) -> Void{
+        actor = selectedPerson
     }
     
     func getArraysCount()-> Int{
@@ -24,11 +24,11 @@ class DetailsScreenModel : DetailsScreenModelProtocol{
     }
     
     func getName() -> String{
-        return per.name ?? " "
+        return actor?.name ?? " "
     }
     
     func getPersonPath() -> String{
-        return per.path ?? " "
+        return actor?.path ?? " "
     }
     
     func getPathAtIndex(indx: Int) -> String{
@@ -37,68 +37,60 @@ class DetailsScreenModel : DetailsScreenModelProtocol{
     
     func getPaths(completion: @escaping (Bool)-> Void){
         
-        let str = "\(per.id ?? 0)"
+        let str = "\(actor?.id ?? 0)"
         let provider = MoyaProvider<DetailsTarget>()
         provider.request(.images(id: str)){ result in
             switch result {
             case .success(let response):
                 do {
-                    let jsonObject = try JSONSerialization.jsonObject(with: response.data)
-                    let dictionary = jsonObject as? NSDictionary
-                    let profiles = dictionary?["profiles"] as? [NSDictionary]
-                    for profile in profiles!{
-                        let path = profile["file_path"] as? String
-                        if (path != nil){
-                            self.arrayOfPaths.append(path!)
-                        }
+                    //                    let jsonObject = try JSONSerialization.jsonObject(with: response.data)
+//                    let jsObj = try JSONSerialization.jsonObject(with: response.data)
+                    //                    let dictionary = jsonObject as? NSDictionary
+                    //                    let profiles = dictionary?["profiles"] as? [NSDictionary]
+                    //                    for profile in profiles!{
+                    //                        let path = profile["file_path"] as? String
+                    //                        if (path != nil){
+                    //                            self.arrayOfPaths.append(path!)
+//                    let decoder = JSONDecoder()
+//                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+//                    let codingData = try decoder.decode(Path.CodingData.self, from: response.data)
+//                    let path = codingData.pathData
+//                    completion(true)
+                    
+                    let decoder = JSONDecoder()
+                  
+                    let actorProfiles = try decoder.decode(ActorProfiles.self, from: response.data)
+                    print(actorProfiles.id)
+                    for profilePath in actorProfiles.profiles{
+                        self.arrayOfPaths.append(profilePath.filePath)
                     }
                     completion(true)
-                } catch {
-                    print("JSON error: \(error.localizedDescription)")
-                }
+             
+            } catch {
+                print("JSON error: \(error.localizedDescription)")
+            }
             case .failure:
-                // 5
-                print("network error")
+            // 5
+            print("network error")
+        }
+    }
+  
+}
+
+
+func getImage(str : String , indx : IndexPath, completion : @escaping (Data, String) -> Void){
+    
+    let session = URLSession.shared
+    let url = URL(string : str)
+    let imageTask = session.dataTask(with: url!, completionHandler: { data, response, error in
+        if(data != nil){
+            completion(data! , str)
+        }else {
+            DispatchQueue.main.async{
+                print("error loading data")
             }
         }
-        //
-        //        let url = URL(string : "https://api.themoviedb.org/3/person/"+str + "/images?api_key=6b93b25da5cdb9298216703c40a31832")!
-        //        let session = URLSession.shared
-        //        let pathsTask = session.dataTask(with: url , completionHandler: { data , response, error in
-        //            do{
-        //                if (data != nil ){
-        //                    let jsonObject = try JSONSerialization.jsonObject(with: data!)
-        //                    let dictionary = jsonObject as? NSDictionary
-        //                    let profiles = dictionary?["profiles"] as? [NSDictionary]
-        //                    for profile in profiles!{
-        //                        let path = profile["file_path"] as? String
-        //                        if (path != nil){
-        //                            self.arrayOfPaths.append(path!)
-        //                        }
-        //                    }
-        //                 completion(true)
-        //                }
-        //            }catch {
-        //                print("JSON error: \(error.localizedDescription)")
-        //            }
-        //        })
-        //        pathsTask.resume()
-    }
-    
-    
-    func getImage(str : String , indx : IndexPath, completion : @escaping (Data, String) -> Void){
-        
-        let session = URLSession.shared
-        let url = URL(string : str)
-        let imageTask = session.dataTask(with: url!, completionHandler: { data, response, error in
-            if(data != nil){
-                completion(data! , str)
-            }else {
-                DispatchQueue.main.async{
-                    print("error loading data")
-                }
-            }
-        })
-        imageTask.resume()
-    }
+    })
+    imageTask.resume()
+}
 }
