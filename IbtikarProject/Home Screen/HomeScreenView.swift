@@ -28,6 +28,7 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
             homeScreenPresenter?.bringAndRender(caller : "viewDidLoad")
             self.tableView.accessibilityIdentifier = "myTable"
       }
+
       
       func reloadHomeScreen(){
             DispatchQueue.main.async {
@@ -38,6 +39,7 @@ class HomeScreenView: UITableViewController, UISearchBarDelegate, HomeScreenView
       func setActivity(status : Bool) -> Void{
             activity.isHidden = status
       }
+      
       
       @objc func refresh(sender:AnyObject) {
             // Code to refresh table view

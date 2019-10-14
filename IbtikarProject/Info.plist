@@ -22,10 +22,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>My Protocol</string>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>IbtikarProject</string>
+				<string>oauth-swift</string>
 			</array>
 		</dict>
 	</array>

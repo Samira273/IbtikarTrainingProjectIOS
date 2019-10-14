@@ -9,25 +9,23 @@
 import UIKit
 import Photos
 import Alamofire
-import p2_OAuth2
+import OAuthSwift
+import SwiftyXMLParser
+
 
 
 class UploaedImageViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
-    let oauth2 = OAuth2CodeGrant(settings: [
-        "client_id": "my_swift_app",
-        "client_secret": "C7447242",
-        "authorize_uri": "https://github.com/login/oauth/authorize",
-        "token_uri": "https://github.com/login/oauth/access_token",   // code grant only
-        "redirect_uris": ["myapp://oauth/callback"],   // register your own "myapp" scheme in Info.plist
-        "scope": "user repo:status",
-        "secret_in_body": true,    // Github needs this
-        "keychain": false,         // if you DON'T want keychain integration
-        ] as OAuth2JSON)
+    
 
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var chooseBtn: UIButton!
     var imagePicker = UIImagePickerController()
+    var oauthSwift: OAuth1Swift?
+    var oauthToken : String?
+    var oauthTokenSecret : String?
+    var userName : String?
+    var userId : String?
     
     @IBAction func btnClicked() {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
@@ -46,7 +44,7 @@ class UploaedImageViewController: UIViewController, UINavigationControllerDelega
         super.viewDidLoad()
         checkPermission()
         imagePicker.delegate = self
-        authenticateUser()
+       
         // Do any additional setup after loading the view.
     }
     
@@ -77,70 +75,56 @@ class UploaedImageViewController: UIViewController, UINavigationControllerDelega
     }
     
     @IBAction func uploadImage(_ sender: Any) {
+         authenticateUser()
     }
     
+
     
     func authenticateUser(){
-        oauth2.authConfig.authorizeEmbedded = true
-        oauth2.authConfig.authorizeContext = self
-        oauth2.logger = OAuth2DebugLogger(.trace)
-
-
+        oauthSwift = OAuth1Swift(
+            consumerKey: "88061f852ed398e0a88f67ab0fbc5cee",
+            consumerSecret: "4776ce54a1c97111",
+            requestTokenUrl:"https://www.flickr.com/services/oauth/request_token",
+            authorizeUrl: "https://www.flickr.com/services/oauth/authorize",
+            accessTokenUrl: "https://www.flickr.com/services/oauth/access_token"
+        )
+        
+        _ = oauthSwift?.authorize(
+        withCallbackURL: URL(string: "oauth-swift://oauth-callback/flickr")!) { result in
+            switch result {
+            case .success(let (credential, response, parameters)):
+                
+                let image = self.imageView.image
+                guard let data = image?.jpegData(compressionQuality: 0.8) else {return}
+                let fileData = OAuthSwiftMultipartData(name: "photo", data: data , fileName: "imageeeeeeee", mimeType: "png")
+                let multiparts = [fileData]
+               let client = OAuthSwiftClient(credential: credential)
+                client.postMultiPartRequest("https://up.flickr.com/services/upload/", method: .POST, parameters: parameters, headers: nil, multiparts: multiparts, checkTokenExpiration: true, completionHandler: { uploadResult in
+                    switch uploadResult{
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    case .success(let success):
+                       let xml = XML.parse(success.data)
+                       if let pid = xml["rsp" , "photoid"].text{
+                        print(pid)
+                        }
+                        
+                    }
+                })
+            // Do your request
+            case .failure(let error):
+                switch error {
+                case .retain:
+                    print("tokrn expired")
+                default:
+                    break
+                }
+                print(error.localizedDescription)
+            }
+        }
+        
+        
     }
-//    func application(_ app: UIApplication,
-//                     open url: URL,
-//                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-//        // you should probably first check if this is the callback being opened
-////        if (oauth2) {
-//            // if your oauth2 instance lives somewhere else, adapt accordingly
-//            oauth2.handleRedirectURL(url)
-////        }
-//    }
-    
-//    func requestWith(endUrl: String, imageData: Data?, parameters: [String : Any], onCompletion: ((JSON?) -> Void)? = nil, onError: ((Error?) -> Void)? = nil){
-//
-//        let url = "https://up.flickr.com/services/upload/" /* your API url */
-//
-//        let headers: HTTPHeaders = [
-//            /* "Authorization": "your_access_token",  in case you need authorization header */
-////            "oauth_token": "4d4eeaffeeadc6d7a88a8e2bc6bc0de6-d4bd66812fa179a2",
-//            "Content-type": "multipart/form-data"
-//        ]
-//
-//        Alamofire.upload(multipartFormData: { (multipartFormData) in
-//            for (key, value) in parameters {
-//                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
-//            }
-//
-//            if let data = imageData{
-//                multipartFormData.append(data, withName: "image", fileName: "image.png", mimeType: "image/png")
-//            }
-//
-//        }, usingThreshold: UInt64.init(), to: url, method: .post, headers: headers) { (result) in
-//            switch result{
-//            case .success(let upload, _, _):
-//                upload.responseJSON { response in
-//                    print("Succesfully uploaded")
-//                    if let err = response.error{
-//                        onError?(err)
-//                        return
-//                    }
-//                    onCompletion?(nil)
-//                }
-//            case .failure(let error):
-//                print("Error in upload: \(error.localizedDescription)")
-//                onError?(error)
-//            }
-//        }
-//    }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

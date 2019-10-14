@@ -10,8 +10,7 @@ target 'IbtikarProject' do
 	pod 'ObjectMapper'
 	pod 'SwiftyJSON'
 	pod 'OAuthSwift'
-	pod 'p2.OAuth2'
-	pod 'FlickrKit'
+	pod "SwiftyXMLParser"
 
 
   # Pods for IbtikarProject

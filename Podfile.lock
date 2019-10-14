@@ -1,6 +1,5 @@
 PODS:
   - Alamofire (4.9.0)
-  - FlickrKit (1.0.9)
   - Moya (13.0.1):
     - Moya/Core (= 13.0.1)
   - Moya/Core (13.0.1):
@@ -8,46 +7,43 @@ PODS:
     - Result (~> 4.1)
   - OAuthSwift (2.0.0)
   - ObjectMapper (3.5.1)
-  - p2.OAuth2 (5.0.0)
   - Result (4.1.0)
   - SDWebImage (5.1.1):
     - SDWebImage/Core (= 5.1.1)
   - SDWebImage/Core (5.1.1)
   - SwiftyJSON (5.0.0)
+  - SwiftyXMLParser (5.0.0)
 
 DEPENDENCIES:
   - Alamofire
-  - FlickrKit
   - Moya
   - OAuthSwift
   - ObjectMapper
-  - p2.OAuth2
   - SDWebImage (~> 5.0)
   - SwiftyJSON
+  - SwiftyXMLParser
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - FlickrKit
     - Moya
     - OAuthSwift
     - ObjectMapper
-    - p2.OAuth2
     - Result
     - SDWebImage
     - SwiftyJSON
+    - SwiftyXMLParser
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  FlickrKit: 79ffaf64a12293ba2b1aa8a2e53a4958cb113256
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   OAuthSwift: 6805456763cf1c7ae0c16765257ed430b7aacae7
   ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
-  p2.OAuth2: 5d203b46c2857b4bbcca3e521089959e7b3b5a5c
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  SwiftyXMLParser: 5ebb8793192f403fa8cc691045143906122a7a75
 
-PODFILE CHECKSUM: b479dea6b912e69e5bf1aa88b65784b26f1ea4fe
+PODFILE CHECKSUM: 96ea578454e6564f36a2581b7fc1e27755200b15
 
 COCOAPODS: 1.7.5
